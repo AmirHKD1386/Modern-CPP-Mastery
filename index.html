@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد تعاملی برنامه درسی جامع مدرن C++ (همراه با دستیار زنده Gemini AI)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
+        body {
+            font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .code-block {
+            direction: ltr;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
+
+    <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <span class="bg-indigo-600 text-white font-mono font-bold px-2.5 py-1 rounded-lg text-lg shadow-sm border border-indigo-500">++C20/23</span>
+                    <div>
+                        <h1 class="text-lg font-bold text-slate-100 leading-tight">برنامه درسی جامع مدرن ++C</h1>
+                        <p class="text-xs text-indigo-300 font-medium">همگرایی مهندسی سیستم، C++ Primer و برنامه‌نویسی الگوریتمی رقابتی</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex items-center gap-1 text-sm font-medium">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3 py-2 rounded-lg bg-indigo-600 text-white transition">داشبورد</button>
+                    <button onclick="switchTab('explorer')" id="nav-explorer" class="nav-btn px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">کاوشگر دروس</button>
+                    <button onclick="switchTab('comparator')" id="nav-comparator" class="nav-btn px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">مقایسه‌گر کارایی</button>
+                    <button onclick="switchTab('checkpoints')" id="nav-checkpoints" class="nav-btn px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">آزمایشگاه سنجش</button>
+                    <button onclick="switchTab('template')" id="nav-template" class="nav-btn px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">قالب مسابقاتی</button>
+                    <button onclick="switchTab('ai')" id="nav-ai" class="nav-btn px-3 py-2 rounded-lg text-indigo-300 bg-indigo-950/70 border border-indigo-700/60 hover:text-white hover:bg-indigo-600 transition flex items-center gap-1.5 shadow-sm">
+                        <span class="inline-block w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                        <span>دستیار هوشمند AI (زنده)</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+        <div class="md:hidden flex overflow-x-auto gap-2 px-4 py-2 bg-slate-950 border-t border-slate-800 text-xs font-medium custom-scrollbar">
+            <button onclick="switchTab('dashboard')" class="mobile-nav-btn px-3 py-1.5 rounded-md bg-indigo-600 text-white whitespace-nowrap">داشبورد</button>
+            <button onclick="switchTab('explorer')" class="mobile-nav-btn px-3 py-1.5 rounded-md text-slate-300 hover:bg-slate-800 whitespace-nowrap">کاوشگر دروس</button>
+            <button onclick="switchTab('comparator')" class="mobile-nav-btn px-3 py-1.5 rounded-md text-slate-300 hover:bg-slate-800 whitespace-nowrap">مقایسه‌گر کارایی</button>
+            <button onclick="switchTab('checkpoints')" class="mobile-nav-btn px-3 py-1.5 rounded-md text-slate-300 hover:bg-slate-800 whitespace-nowrap">آزمایشگاه سنجش</button>
+            <button onclick="switchTab('template')" class="mobile-nav-btn px-3 py-1.5 rounded-md text-slate-300 hover:bg-slate-800 whitespace-nowrap">قالب مسابقاتی</button>
+            <button onclick="switchTab('ai')" class="mobile-nav-btn px-3 py-1.5 rounded-md text-indigo-300 bg-indigo-950/80 border border-indigo-700/50 whitespace-nowrap">دستیار هوشمند AI</button>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+        <!-- SECTION: DASHBOARD -->
+        <section id="tab-dashboard" class="tab-content space-y-6">
+            <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-6 sm:p-8 text-white shadow-xl border border-indigo-900/50">
+                <p class="text-indigo-400 text-xs sm:text-sm font-semibold tracking-wide uppercase mb-2">اصول انتزاع با هزینه صفر (Zero-Overhead Principle) و C++ Primer</p>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">نقشه راه ارتقای مهارت از صفر مطلق تا استادی سیستم‌های بلادرنگ و مسابقاتی</h2>
+                <p class="text-slate-300 text-sm leading-relaxed max-w-4xl">
+                    این برنامه آموزشی تعاملی، مفاهیم پایه‌ای کتاب مرجع C++ Primer و الگوریتم‌های رقابتی (برگرفته از Competitive Programmer’s Handbook) را با پرنسیپ‌های کنترل دقیق منابع و معماری نرم‌افزارهای حیاتی پیوند می‌زند. تمامی دروس بر پایه حذف رفتارهای تعریف‌نشده، تایپ‌ایمنی سخت‌گیرانه، و محاسبات زمان کامپایل بازطراحی شده‌اند.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-indigo-300 transition">
+                    <div class="text-xs text-slate-500 font-medium">مراحل آموزشی</div>
+                    <div class="text-2xl sm:text-3xl font-black text-indigo-600 mt-1">۷ مرحله</div>
+                    <div class="text-xs text-slate-400 mt-1">شروع از درس صفر تا استادی</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-indigo-300 transition">
+                    <div class="text-xs text-slate-500 font-medium">زمان‌بندی کل</div>
+                    <div class="text-2xl sm:text-3xl font-black text-indigo-600 mt-1">۴۰-۴۲ هفته</div>
+                    <div class="text-xs text-slate-400 mt-1">۶ تا ۱۰ ساعت در هفته</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-indigo-300 transition">
+                    <div class="text-xs text-slate-500 font-medium">سرفصل‌های تخصصی</div>
+                    <div class="text-2xl sm:text-3xl font-black text-indigo-600 mt-1">۵۰+ درس</div>
+                    <div class="text-xs text-slate-400 mt-1">همراه توضیحات تشریحی و پل‌های انتقال</div>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-indigo-300 transition">
+                    <div class="text-xs text-slate-500 font-medium">سربار زمان اجرا</div>
+                    <div class="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">۰٪ (Zero)</div>
+                    <div class="text-xs text-slate-400 mt-1">اتصال ایستا و compile-time</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">مرور مراحل ۷‌گانه دوره آموزشی همراه با پل‌های ارتباطی</h3>
+                        <p class="text-xs text-slate-500 mb-4">برای مشاهده سریع سرفصل‌ها روی هر مرحله کلیک کنید.</p>
+                        <div class="space-y-3" id="dashboard-stages-list"></div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col items-center justify-center">
+                    <div class="w-full text-right mb-2">
+                        <h3 class="text-lg font-bold text-slate-900">توزیع زمانی مراحل</h3>
+                        <p class="text-xs text-slate-500">تخمین زمان مورد نیاز بر حسب هفته</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="timeDistributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: LESSON EXPLORER -->
+        <section id="tab-explorer" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">کاوشگر تعاملی سرفصل‌ها و پل‌های انتقال (شامل درس صفر تا ۶)</h2>
+                        <p class="text-xs text-slate-500 mt-0.5">جست‌وجو و فیلتر دروس بر اساس مرحله، ارتباطات پیش‌نیاز و پیوند با CPH</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="relative min-w-[220px]">
+                            <input type="text" id="lessonSearchInput" placeholder="جست‌وجو درس، کد یا کانسپت..." oninput="filterLessons()" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div class="flex bg-slate-100 p-1 rounded-lg text-xs font-medium border border-slate-200">
+                            <button onclick="setPerspectiveFilter('all')" id="persp-all" class="persp-btn px-2.5 py-1 rounded-md bg-white text-indigo-600 shadow-sm">همه دیدگاه‌ها</button>
+                            <button onclick="setPerspectiveFilter('cph')" id="persp-cph" class="persp-btn px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900">CPH (مسابقاتی)</button>
+                            <button onclick="setPerspectiveFilter('embedded')" id="persp-embedded" class="persp-btn px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900">Embedded (سیستم)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex overflow-x-auto gap-2 border-t border-slate-100 pt-3 custom-scrollbar text-xs font-medium" id="stageFilterButtons"></div>
+            </div>
+
+            <div id="lessonsContainer" class="grid grid-cols-1 gap-6"></div>
+        </section>
+
+        <!-- SECTION: COMPARATOR -->
+        <section id="tab-comparator" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <h2 class="text-xl font-bold text-slate-900">مقایسه‌گر کارایی و تکنیک‌های زمان کامپایل</h2>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    این بخش اثرات مستقیم استفاده از رویکردهای مدرن ++C را در مقایسه با روش‌های سنتی C-Style یا چندریختی پویا ارزیابی می‌کند. با انتخاب تکنیک‌ها، تحلیل تاخیر زمان اجرا، حافظه و ایمنی را مشاهده کنید.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-base font-bold text-slate-900 mb-1">ارزیابی سربار نسبی زمان اجرا و تخصیص حافظه</h3>
+                        <p class="text-xs text-slate-500 mb-4">مقایسه شاخص‌های کارایی (ارزش کمتر = عملکرد بهتر و سریع‌تر)</p>
+                        <div class="chart-container">
+                            <canvas id="overheadChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-400 text-center mt-2">مواخذ: بنچمارک‌های استاندارد C++20/23 در کامپایلرهای GCC 13 و Clang 16 با سطح بهینه‌سازی O3</div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="text-base font-bold text-slate-900 border-b border-slate-100 pb-2">جدول مقایسه‌ای الگوهای سنتی و مدرن</h3>
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-xs text-right border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-700 border-b border-slate-200 font-bold">
+                                    <th class="p-2.5">الگو/مکانیزم</th>
+                                    <th class="p-2.5">محل تخصیص</th>
+                                    <th class="p-2.5">نوع فراخوانی</th>
+                                    <th class="p-2.5">سطح ایمنی</th>
+                                    <th class="p-2.5">ارزیابی CPH/سیستم</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-slate-600">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2.5 font-bold text-rose-600">Exceptions (try/catch)</td>
+                                    <td class="p-2.5">Dynamic / Heap</td>
+                                    <td class="p-2.5">Stack Unwinding</td>
+                                    <td class="p-2.5 text-amber-600">متوسط</td>
+                                    <td class="p-2.5 text-rose-600">غیرقطعی (TLE/Size)</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2.5 font-bold text-emerald-600">std::expected / optional</td>
+                                    <td class="p-2.5 font-semibold text-slate-800">Inline / Stack</td>
+                                    <td class="p-2.5 font-semibold text-slate-800">Direct Return</td>
+                                    <td class="p-2.5 text-emerald-600 font-bold">عالی (Monadic)</td>
+                                    <td class="p-2.5 text-emerald-600 font-bold">سربار صفر (Zero Overhead)</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2.5 font-bold text-rose-600">Virtual Functions (vtable)</td>
+                                    <td class="p-2.5">Vtable Pointer</td>
+                                    <td class="p-2.5">Indirect Dispatch</td>
+                                    <td class="p-2.5 text-slate-700">خوب</td>
+                                    <td class="p-2.5 text-amber-600">تخریب کارایی Cache</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2.5 font-bold text-emerald-600">CRTP & C++20 Concepts</td>
+                                    <td class="p-2.5 font-semibold text-slate-800">Compile Time</td>
+                                    <td class="p-2.5 font-semibold text-slate-800">Static / Inlined</td>
+                                    <td class="p-2.5 text-emerald-600 font-bold">عالی (Static Check)</td>
+                                    <td class="p-2.5 text-emerald-600 font-bold">حداکثر سرعت اجرا</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2.5 font-bold text-rose-600">std::function wrapper</td>
+                                    <td class="p-2.5">Possible Heap Allocation</td>
+                                    <td class="p-2.5">Type Erasure Call</td>
+                                    <td class="p-2.5 text-slate-700">خوب</td>
+                                    <td class="p-2.5 text-rose-600">کاهش سرعت تا ۵ برابر</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2.5 font-bold text-emerald-600">Direct Lambdas (auto& self)</td>
+                                    <td class="p-2.5 font-semibold text-slate-800">Stack / Closure</td>
+                                    <td class="p-2.5 font-semibold text-slate-800">Direct Inlined Call</td>
+                                    <td class="p-2.5 text-emerald-600 font-bold">عالی</td>
+                                    <td class="p-2.5 text-emerald-600 font-bold">سرعت نیتیو بدون تخصیص</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: CHECKPOINTS -->
+        <section id="tab-checkpoints" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">آزمایشگاه سنجش و چک‌پوینت‌های ترکیبی و پل‌محور</h2>
+                        <p class="text-xs text-slate-600 mt-1">ارزیابی پیشرفت بر اساس تلفیق مفاهیم مراحل متوالی و حل مسائل تمرینی.</p>
+                    </div>
+                    <div class="bg-indigo-50 border border-indigo-200 rounded-xl px-4 py-2 text-center">
+                        <span class="text-xs text-indigo-700 font-medium block">میزان آمادگی کل:</span>
+                        <span id="readinessPercent" class="text-xl font-black text-indigo-600">۰٪</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="checkpointsListContainer"></div>
+        </section>
+
+        <!-- SECTION: TEMPLATE -->
+        <section id="tab-template" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">الگوی استاندارد مسابقات رقابتی (C++20/23)</h2>
+                        <p class="text-xs text-slate-600 mt-0.5">قالب مدرن، سریع و ایزوله‌شده بدون ماکروهای ناامن برای المپیاد کوئرا و مسابقات ICPC</p>
+                    </div>
+                    <button onclick="copyTemplateCode()" class="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition shadow-sm">
+                        <span>کپی قالب C++20</span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-slate-950 rounded-xl p-4 text-slate-200 custom-scrollbar overflow-x-auto text-xs code-block">
+                        <pre id="templateCodeBlock">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;array&gt;
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+#include &lt;numeric&gt;
+#include &lt;queue&gt;
+#include &lt;set&gt;
+#include &lt;span&gt;
+#include &lt;optional&gt;
+#include &lt;bit&gt;
+
+using i64 = long long;
+using u64 = unsigned long long;
+
+constexpr i64 INF64 = 1e18;
+constexpr int MOD = 1e9 + 7;
+
+inline void optimize_io() noexcept {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+}
+
+void solve_case([[maybe_unused]] int test_number) {
+    int n = 0;
+    if (!(std::cin &gt;&gt; n)) return;
+
+    std::vector&lt;i64&gt; values(n);
+    for (auto&amp; val : values) {
+        std::cin &gt;&gt; val;
+    }
+
+    i64 max_sum = -INF64;
+    i64 current_sum = 0;
+
+    for (const auto&amp; val : values) {
+        current_sum = std::max(val, current_sum + val);
+        max_sum = std::max(max_sum, current_sum);
+    }
+
+    std::cout &lt;&lt; max_sum &lt;&lt; "\n";
+}
+
+int main() {
+    optimize_io();
+
+    int test_cases = 1;
+    // if (std::cin &gt;&gt; test_cases) {}
+
+    for (int t = 1; t &lt;= test_cases; ++t) {
+        solve_case(t);
+    }
+
+    return 0;
+}</pre>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
+                        <h3 class="text-sm font-bold text-slate-900 border-b border-slate-200 pb-2">محاسبه‌گر پیش‌بین پیچیدگی و زمان اجرا</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            ورودی N و مرتبه زمانی الگوریتم را وارد کنید تا تعداد کل عملیات و امکان‌پذیری آن در سقف ۱ ثانیه داوری محاسبه شود.
+                        </p>
+
+                        <div class="space-y-3 text-xs">
+                            <div>
+                                <label class="block font-medium text-slate-700 mb-1">اندازه ورودی (N):</label>
+                                <input type="number" id="inputN" value="200000" oninput="calculateComplexity()" class="w-full bg-white border border-slate-300 rounded-md p-2 text-slate-900 font-mono focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                            </div>
+                            <div>
+                                <label class="block font-medium text-slate-700 mb-1">پیچیدگی زمانی O(...):</label>
+                                <select id="complexitySelect" onchange="calculateComplexity()" class="w-full bg-white border border-slate-300 rounded-md p-2 text-slate-900 font-mono focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                                    <option value="O(1)">O(1) - زمان ثابت</option>
+                                    <option value="O(log N)">O(log N) - لگاریتمی</option>
+                                    <option value="O(N)" selected>O(N) - خطی</option>
+                                    <option value="O(N log N)">O(N log N) - خطی‌لگاریتمی</option>
+                                    <option value="O(N^2)">O(N^2) - درجه دو</option>
+                                    <option value="O(2^N * N)">O(2^N * N) - ماسک بیتی</option>
+                                </select>
+                            </div>
+                            <div class="p-3 bg-white border border-slate-200 rounded-lg space-y-1">
+                                <div class="text-slate-500">تخمین تعداد عملیات پردازنده:</div>
+                                <div id="opsOutput" class="text-sm font-bold font-mono text-indigo-600">۲۰۰,۰۰۰ عملیات</div>
+                            </div>
+                            <div id="feasibilityBadge" class="p-3 rounded-lg text-center font-bold text-xs bg-emerald-100 text-emerald-800 border border-emerald-300">
+                                کاملاً مجاز (کمتر از ۰.۰۱ ثانیه) - مناسب برای TLE ۱ ثانیه
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: AI ASSISTANT HUB WITH LIVE GEMINI API -->
+        <section id="tab-ai" class="tab-content hidden space-y-6">
+            <div class="bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-900 rounded-2xl p-6 sm:p-8 text-white shadow-xl border border-indigo-800/60 relative overflow-hidden">
+                <div class="relative z-10 space-y-2 max-w-4xl">
+                    <div class="inline-flex items-center gap-2 bg-indigo-500/20 border border-indigo-400/30 px-3 py-1 rounded-full text-indigo-300 text-xs font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-indigo-400 animate-ping"></span>
+                        اتصال زنده به Google Gemini API (مدل پیش‌فرض: gemini-3-flash-preview)
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white">آزمایشگاه هوش مصنوعی و اتصال به کلید API اختصاصی</h2>
+                    <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                        کلید API گوگل جمینای خود را در کادر زیر وارد کنید تا تمامی ابزارهای این بخش (بازبین کد، طراح مسئله مسابقاتی و چت با مربی) مستقیماً به مدل زنده گوگل متصل شده و پاسخ‌های بی‌نظیر و کاملاً واقعی تولید کنند.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-3">
+                    <div>
+                        <h3 class="font-bold text-sm text-slate-900">تنظیمات کلید API گوگل جمینای و تست اتصال</h3>
+                        <p class="text-[11px] text-slate-500">کلید شما مستقیماً در مرورگر استفاده شده و به جایی ارسال نمی‌شود.</p>
+                    </div>
+                    <div id="connectionStatusBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                        <span>متصل نشده (لطفاً کلید API را وارد کنید)</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input type="password" id="userApiKeyInput" placeholder="کلید Gemini API خود را اینجا وارد کنید (AIzaSy...)" class="flex-1 text-xs bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-slate-800 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <button onclick="testGeminiConnection()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-1.5 whitespace-nowrap">
+                        <span>تست اتصال و احراز هویت</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sub-Navigation for AI Tools -->
+            <div class="bg-white p-2 rounded-xl border border-slate-200 shadow-sm flex flex-wrap gap-2 text-xs font-bold">
+                <button onclick="switchAiTool('reviewer')" id="btn-tool-reviewer" class="ai-tool-btn px-4 py-2 rounded-lg bg-indigo-600 text-white shadow-sm transition">
+                    بازبین و مدرن‌ساز زنده کد (Code Reviewer)
+                </button>
+                <button onclick="switchAiTool('generator')" id="btn-tool-generator" class="ai-tool-btn px-4 py-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                    طراح مسئله و تست‌کیس مسابقاتی (AI)
+                </button>
+                <button onclick="switchAiTool('chat')" id="btn-tool-chat" class="ai-tool-btn px-4 py-2 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                    گفت‌وگوی زنده با مربی الگوریتم (Gemini)
+                </button>
+            </div>
+
+            <!-- Tool 1: AI Code Reviewer -->
+            <div id="ai-tool-reviewer" class="ai-tool-pane space-y-4">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-sm text-slate-900">ورودی کد ++C برای تحلیل زنده</h3>
+                                <div class="flex gap-1 text-[11px]">
+                                    <button onclick="loadCodePreset('vector_reserve')" class="px-2 py-0.5 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded text-slate-600">مثال ۱ (I/O و Vector)</button>
+                                    <button onclick="loadCodePreset('virtual_to_crtp')" class="px-2 py-0.5 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded text-slate-600">مثال ۲ (vtable به CRTP)</button>
+                                </div>
+                            </div>
+                            <textarea id="aiCodeInput" rows="12" placeholder="// کد C++ یا قطعه برنامه مسابقاتی خود را اینجا قرار دهید..." class="w-full text-xs font-mono bg-slate-950 text-emerald-400 p-4 rounded-xl border border-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 code-block custom-scrollbar"></textarea>
+                            
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-bold text-slate-700 block">محور تمرکز تحلیل هوش مصنوعی:</label>
+                                <select id="aiReviewFocus" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="zero_overhead">ارزیابی سربار زمان اجرا و تبدیل به انتزاع با هزینه صفر (Zero-Overhead & Modern C++20)</option>
+                                    <option value="cp_optimization">بهینه‌سازی برای سیستم داوری کوئرا و ICPC (جلوگیری از TLE و مصرف حافظه)</option>
+                                    <option value="safety_ub">شناسایی رفتارهای تعریف‌نشده (UB)، نشت حافظه و ارتقای ایمنی نوع (Strong Types)</option>
+                                    <option value="compile_time">انتقال محاسبات سنگین به زمان کامپایل (constexpr/consteval و Concepts)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button onclick="runAiCodeReview()" id="btnRunReview" class="w-full mt-3 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                            <span id="reviewBtnText">ارسال به مدل Gemini و بازنویسی کد</span>
+                        </button>
+                    </div>
+
+                    <!-- AI Review Output Display -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between min-h-[420px]">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                                <h3 class="font-bold text-sm text-slate-900 flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                                    <span>نتیجه تحلیل زنده مدل و کد بهینه‌شده</span>
+                                </h3>
+                                <button onclick="copyAiOutput('aiReviewOutput')" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800">کپی متن</button>
+                            </div>
+                            <div id="aiReviewLoading" class="hidden py-16 text-center space-y-3">
+                                <div class="inline-block w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+                                <p class="text-xs text-slate-500 font-medium animate-pulse">در حال ارتباط با سرور گوگل جمینای و تحلیل پیشرفته کد...</p>
+                            </div>
+                            <div id="aiReviewOutput" class="text-xs text-slate-700 leading-relaxed whitespace-pre-wrap max-h-[460px] overflow-y-auto custom-scrollbar p-3 bg-slate-50 rounded-xl border border-slate-100 font-sans">
+لطفاً ابتدا کلید API خود را در بالای صفحه وارد و تست کنید، سپس کد خود را برای تحلیل زنده ارسال نمایید.
+                            </div>
+                        </div>
+                        <div class="text-[10px] text-slate-400 border-t border-slate-100 pt-2 text-center">
+                            پردازش از طریق مدل gemini-3-flash-preview با استاندارد C++20/23
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 2: AI Problem Generator -->
+            <div id="ai-tool-generator" class="ai-tool-pane hidden space-y-4">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                        <div>
+                            <h3 class="font-bold text-base text-slate-900">مولد هوشمند مسئله و تست‌کیس‌های مرزی مسابقات الگوریتمی (زنده)</h3>
+                            <p class="text-xs text-slate-500 mt-1">تولید سناریوهای رقابتی پویا بر اساس مفاهیم مراحل برنامه درسی توسط جمینای</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">موضوع الگوریتمی و تکنیک C++:</label>
+                            <select id="genTopic" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-slate-800">
+                                <option value="DSU with Rollback and Move Semantics">مجموعه‌های مجزا (DSU) با قابلیت Rollback و Move</option>
+                                <option value="Segment Tree with C++20 Concepts">درخت بازه‌ها (Segment Tree) با مفاهیم زمان کامپایل</option>
+                                <option value="Bitmask DP and modern std::bit">برنامه‌نویسی پویای ماسک بیتی با هدر &lt;bit&gt;</option>
+                                <option value="Dijkstra with Distance Pruning and PMR">دایکسترا با صف اولویت و تخصیص‌دهنده چندریختی (PMR)</option>
+                                <option value="Fenwick Tree and Prefix Sums">درخت فنویک و پرسش‌های بازه‌ای پویا</option>
+                                <option value="Compile-Time LUT with constexpr">تولید جدول مقادیر Look-Up در زمان کامپایل</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">سطح دشواری (Difficulty):</label>
+                            <select id="genDifficulty" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-slate-800">
+                                <option value="Easy (Div 2 - A/B)">ساده (مناسب دست‌گرمی و تسلط بر نحو C++20)</option>
+                                <option value="Medium (Div 2 - C/D / Quera Tech)">متوسط (استاندارد المپیاد فناوری کوئرا)</option>
+                                <option value="Hard (Div 1 / ICPC Regional)">سخت (مسائل ترکیبی و مرزهای TLE شدید)</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <button onclick="generateAiProblem()" id="btnGenProblem" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                                <span id="genBtnText">تولید مسئله زنده با Gemini</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="genLoading" class="hidden py-12 text-center space-y-3">
+                        <div class="inline-block w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+                        <p class="text-xs text-slate-500 font-medium">در حال تولید مسئله جدید و تست‌کیس‌های مرزی توسط هوش مصنوعی...</p>
+                    </div>
+                    <div id="genResultContainer" class="hidden space-y-4">
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs leading-relaxed space-y-3" id="genResultText"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 3: AI Mentor Chat -->
+            <div id="ai-tool-chat" class="ai-tool-pane hidden space-y-4">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4 flex flex-col h-[600px]">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <div>
+                            <h3 class="font-bold text-sm text-slate-900">مربی همراه هوشمند (متصل به مدل زنده Gemini API)</h3>
+                            <p class="text-[11px] text-slate-500">پاسخ‌گویی مستقیم به ابهامات فنی، دلایل تفاوت‌های عملکردی و استراتژی‌های مسابقات</p>
+                        </div>
+                        <button onclick="clearChatHistory()" class="text-xs text-rose-600 hover:text-rose-800 font-medium">پاک کردن گفت‌وگو</button>
+                    </div>
+
+                    <!-- Quick Prompt Suggestions -->
+                    <div class="flex items-center gap-1.5 overflow-x-auto py-1 custom-scrollbar text-[11px]">
+                        <span class="text-slate-400 font-medium whitespace-nowrap">پرسش‌های سریع:</span>
+                        <button onclick="sendQuickPrompt('چرا std::function تا ۵ برابر کندتر از لامبدای عادی است و چطور آن را جایگزین کنیم؟')" class="px-2.5 py-1 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg text-slate-600 whitespace-nowrap transition">سربار std::function</button>
+                        <button onclick="sendQuickPrompt('در ورودی‌های بزرگ مسابقات (۱۰ به توان ۶)، چرا استفاده از std::endl باعث TLE می‌شود؟')" class="px-2.5 py-1 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg text-slate-600 whitespace-nowrap transition">علت TLE با endl</button>
+                        <button onclick="sendQuickPrompt('الگوی CRTP چگونه جایگزین توابع مجازی vtable می‌شود و در مسابقات چه مزیتی دارد؟')" class="px-2.5 py-1 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg text-slate-600 whitespace-nowrap transition">کاربرد CRTP</button>
+                        <button onclick="sendQuickPrompt('چگونه با استفاده از Strong Types از خطای جابجایی پارامترهای هم‌نوع در گراف جلوگیری کنیم؟')" class="px-2.5 py-1 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg text-slate-600 whitespace-nowrap transition">تایپ‌ایمنی در گراف</button>
+                    </div>
+
+                    <!-- Chat Messages Stream Container -->
+                    <div id="chatMessagesContainer" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs">
+                        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm max-w-[85%] space-y-1">
+                            <span class="font-bold text-indigo-600 block">مربی هوشمند مدرن ++C (Gemini AI):</span>
+                            <p class="text-slate-700 leading-relaxed">
+                                سلام! پس از ورود و تایید کلید API در بالای صفحه، می‌توانید هر سوالی درباره مراحل ۷‌گانه نقشه راه، C++ Primer، الگوهای CPH یا مباحث تعبیه‌شده بپرسید تا مستقیماً پاسخ زنده دریافت کنید.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input Bar -->
+                    <div class="flex items-center gap-2 pt-2">
+                        <input type="text" id="chatInputText" onkeydown="handleChatKeyPress(event)" placeholder="سوال خود را درباره الگوریتم‌ها یا ویژگی‌های C++ بپرسید..." class="flex-1 text-xs bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <button onclick="sendChatMessage()" id="btnSendChat" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5 whitespace-nowrap">
+                            <span>ارسال به مربی</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive AI Lesson Deep-Dive Modal -->
+        <div id="aiLessonModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
+                <div class="bg-slate-900 text-white p-4 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-indigo-600 text-white font-mono text-xs px-2 py-0.5 rounded font-bold" id="modalLessonBadge">درس</span>
+                        <h3 class="font-bold text-sm text-slate-100" id="modalLessonTitle">تحلیل هوشمند درس</h3>
+                    </div>
+                    <button onclick="closeAiLessonModal()" class="text-slate-400 hover:text-white text-lg font-bold px-2 py-0.5 rounded-lg hover:bg-slate-800 transition">✕</button>
+                </div>
+                <div class="p-5 overflow-y-auto custom-scrollbar flex-1 space-y-4 text-xs text-slate-700">
+                    <div id="modalLessonLoading" class="hidden py-12 text-center space-y-2">
+                        <div class="inline-block w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+                        <p class="text-slate-500 font-medium">در حال آماده‌سازی تحلیل درس و آزمونک...</p>
+                    </div>
+                    <div id="modalLessonContent" class="space-y-3 leading-relaxed whitespace-pre-wrap font-sans"></div>
+                </div>
+                <div class="bg-slate-50 border-t border-slate-200 p-3 flex items-center justify-between text-xs">
+                    <span class="text-slate-400 text-[11px]">تحلیل مبتنی بر استاندارد C++20/23 و مراجع CPH/C++ Primer/Embedded</span>
+                    <button onclick="closeAiLessonModal()" class="px-4 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold rounded-lg transition">بستن پنجره</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Global Toast Notification -->
+        <div id="toastNotification" class="fixed bottom-5 left-5 z-50 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl border border-slate-700 flex items-center gap-2 text-xs">
+            <span id="toastIcon"></span>
+            <span id="toastMessage"></span>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 mt-12 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-right">
+            <div>
+                <span class="text-slate-200 font-bold">سامانه تعاملی برنامه درسی مدرن ++C</span> - تدوین‌شده بر پایه C++ Primer، CPH و Embedded Systems
+            </div>
+            <div class="text-slate-500">
+                طراحی شده با Tailwind CSS و Chart.js همراه با اتصال مستقیم به Google Gemini API
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function escapeHtml(str) {
+            if (typeof str !== 'string') return '';
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        const stagesData = [
+            {
+                id: 0,
+                title: "مرحله ۰: درس صفر – از صفر مطلق تا پایه‌های محکم ++C (بر اساس کتاب C++ Primer)",
+                weeks: "۵ الی ۶ هفته",
+                hours: "۶-۸ ساعت در هفته",
+                focus: "آموزش مفهومی، گام‌به‌گام و همه‌فهم از صفر مطلق بر پایه کتاب مرجع C++ Primer (ویرایش پنجم)؛ درک دقیق ساختار برنامه، انواع داده، متغیرها، عبارات و عملگرها، کنترل جریان، کانتینرهای استاندارد (std::string و std::vector)، ارجاعات و توابع تا رسیدن به یک قالب مسابقاتی تمیز و بدون نقص.",
+                cphRef: "CPH: فصل ۱ (مقدمه، ورودی/خروجی، محاسبات عددی) و فصل ۲ (تحلیل مرتبه زمانی)",
+                embeddedRef: "Embedded: فصل ۱ (اسطوره‌زدایی نحو)، فصل ۶ (پایه‌های کدنویسی تمیز و ایمن) و اصول مدیریت قطعی منابع",
+                lessons: [
+                    {
+                        id: "0.1",
+                        title: "0.1 – ساختار کلی یک برنامه ++C و اولین برنامه (Hello World)",
+                        concept: "کامپیوتر یک پردازشگر فوق‌العاده سریع اما فاقد درک شهودی است؛ به همین دلیل، برنامه‌نویسی یعنی نوشتن فهرستی دقیق و شفاف از دستورات بدون کمترین ابهام.\n" +
+                                 "بر اساس فصل اول کتاب C++ Primer (بخش‌های ۱.۱ تا ۱.۳)، هر برنامه ++C از چند بخش کلیدی تشکیل شده است:\n" +
+                                 "۱. پیش‌پردازنده (Preprocessor) و دستور `#include`: به کامپایلر می‌گوید جعبه‌ابزارهای استاندارد (مانند <iostream> برای ورودی و خروجی) را پیش از کامپایل به برنامه اضافه کنید.\n" +
+                                 "۲. دروازه ورود (main function): سیستم‌عامل اجرای برنامه را همواره از تابعی به نام `int main()` آغاز می‌کند. کلمه `int` نشان می‌دهد این تابع پس از پایان کار، یک عدد صحیح (کد وضعیت خروج) را به سیستم‌عامل گزارش می‌دهد. عدد 0 نشان‌دهنده اجرای موفق و بدون خطا است.\n" +
+                                 "۳. بلوک‌ها و دیواره‌های کد `{}`: دستورات درون آکولاد باز و بسته قرار می‌گیرند و هر دستور مستقل با نقطه-ویرگول (سمی‌کالن `;`) پایان می‌یابد.\n" +
+                                 "۴. استریم خروجی `std::cout` و عملگر درج `<<`: متن‌ها و اعداد را مانند جریانی پیوسته به سمت صفحه نمایش هدایت می‌کند.\n" +
+                                 "۵. کامنت‌ها (توضیحات): با `//` برای یک خط، یا `/* ... */` برای چند خط. طبق هشدار C++ Primer، هرگز نباید کامنت‌های چندخطی را درون یکدیگر تودرتو کنید، زیرا اولین `*/` کل کامنت را می‌بندد!",
+                        cph: "در سیستم‌های داوری خودکار مسابقاتی (کوئرا، کدکورسز، ICPC)، کوچک‌ترین خطای نحوی مانع کامپایل شده و خروجی اضافه (مانند چاپ متن‌های راهنما برای کاربر) منجر به خطای Wrong Answer می‌شود. تسلط بر چاپ تمیز و کاراکتر خط بعد خروجی، پایه‌ترین اصل مسابقه است.",
+                        embedded: "درک چرخه حیات `main` و حذف کدهای زائد بدون تحمیل لایه‌های سنگین زمان اجرا (Zero Runtime Overhead)، اولین گام مهندسی سیستم‌های توکار است تا اندازه فایل باینری نهایی در کمترین حجم ممکن بماند.",
+                        pitfall: "فراموش کردن نقطه-ویرگول (;) در انتهای دستورات، نوشتن جهت برعکس عملگر (std::cout >> x اشتباه است؛ باید << باشد)، و تودرتو کردن کامنت‌های چندخطی /* /* */ */ که خطای نحوی غیرمنتظره تولید می‌کند.",
+                        exercise: "برنامه‌ای بنویسید که در سه خط جداگانه، نام شما، زبان برنامه‌نویسی مورد علاقه و هدف شما از یادگیری ++C را با استفاده از کاراکتر '\\n' چاپ کند.",
+                        code: "#include <iostream>\n\nint main() {\n    std::cout << \"سلام! به دنیای مدرن C++ خوش آمدید.\\n\";\n    return 0;\n}"
+                    },
+                    {
+                        id: "0.2",
+                        title: "0.2 – متغیرها، انواع داده پایه، مقداردهی اولیه و محدوده‌ها",
+                        concept: "در دیدگاه C++ Primer (فصل ۲، بخش‌های ۲.۱ و ۲.۲)، حافظه رم کامپیوتر مثل خیابانی از خانه‌های یک‌بایتی شماره‌گذاری‌شده است. متغیر، نامی خوانا برای یک تکه از این حافظه است و «نوع داده» اندازه و معنای بیت‌های آن تکه را تعیین می‌کند.\n\n" +
+                                 "انواع داده بنیادین:\n" +
+                                 "• `bool`: مقادیر منطقی درست (`true`) یا نادرست (`false`).\n" +
+                                 "• `char`: یک نویسه/کاراکتر منفرد (مانند `'A'`).\n" +
+                                 "• `int`: عدد صحیح استاندارد (معمولاً ۳۲ بیتی، از ۲- میلیارد تا ۲+ میلیارد).\n" +
+                                 "• `long long`: عدد صحیح ۶۴ بیتی بسیار بزرگ (از حدود ۹- کوینتیلیون تا ۹+ کوینتیلیون؛ یعنی تا حدود 9 × 10^18).\n" +
+                                 "• `double`: عدد اعشاری با دقت مضاعف (۶۴ بیتی، معمولاً تا ۱۵ رقم بامعنی اعشار).\n\n" +
+                                 "تفاوت حیاتی «انتساب» با «مقداردهی اولیه» (Initialization vs Assignment):\n" +
+                                 "متغیر محلی اگر مقداردهی اولیه نشود، حاوی «زباله حافظه» (Garbage Value) خواهد بود و خواندن آن رفتار تعریف‌نشده (Undefined Behavior) است!\n" +
+                                 "کتاب C++ Primer به شدت بر ویژگی انقلابی C++11 یعنی «مقداردهی آکولادی» (مانند `int x{0};`) تأکید می‌کند؛ زیرا کامپایلر با این روش، مانع تبدیل‌های باریک‌کننده ناخواسته (Narrowing Conversions) می‌شود.",
+                        cph: "بزرگ‌ترین کابوس شرکت‌کنندگان مسابقات الگوریتمی، سرریز عدد صحیح (Integer Overflow) است. حاصل‌ضرب دو عدد ۱۰ رقمی از سقف ۲ میلیارد `int` فراتر می‌رود و مقدار منفی عجیبی پس می‌دهد! برای مقادیر بزرگ باید حتماً از `long long` استفاده کرد.",
+                        embedded: "در سیستم‌های تعبیه‌شده، دسترسی به متغیر بدون مقدار اولیه یا خطاهای سرریز پنهان، موجب آسیب فیزیکی به سخت‌افزار یا ریست ناگهانی میکروکنترلر می‌شود. مقداردهی با `{}` ایمنی زمان کامپایل را تضمین می‌کند.",
+                        pitfall: "تعریف متغیر بدون مقدار اولیه (مثل int sum که مقدار زباله دارد)، و استفاده از int به جای long long در ضرب‌ها و جمع‌های بازه‌ای بزرگ.",
+                        exercise: "برنامه‌ای بنویسید که دو عدد صحیح بسیار بزرگ (مثلاً 3 × 10^9) را دریافت کرده و حاصل‌ضرب آن‌ها را بدون سرریز در یک متغیر مناسب ذخیره و چاپ کند.",
+                        code: "#include <iostream>\n\nint main() {\n    int age{16};\n    double gpa{19.85};\n    long long big_num1{3000000000LL};\n    long long big_num2{2000000000LL};\n    long long product{big_num1 * big_num2};\n    std::cout << \"حاصل‌ضرب امن ۶۴ بیتی: \" << product << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "0.3",
+                        title: "0.3 – ورودی و خروجی (cin / cout) و قالب‌بندی ساده",
+                        concept: "در C++ Primer (بخش ۱.۲ و ۳.۱)، مفهوم جریان (Stream) معرفی می‌شود: داده‌ها مانند رودی خروشان از صفحه‌کلید جاری می‌شوند (`std::cin`) یا به سمت صفحه‌نمایش جریان می‌یابند (`std::cout`).\n\n" +
+                                 "اصول استریم‌ها:\n" +
+                                 "• عملگر استخراج `>>`: داده را از استریم جدا کرده و درون متغیر می‌ریزد (`cin >> a >> b;`).\n" +
+                                 "• الگوی طلایی خواندن تا انتهای فایل `while (cin >> x)`: خود عبارت `cin >> x` وضعیتی تولید می‌کند که اگر ورودی به پایان برسد (EOF) یا داده نامعتبر باشد، تبدیل به `false` شده و حلقه هوشمندانه متوقف می‌شود!",
+                        cph: "مسائل مسابقاتی گاهی تعداد ورودی نامشخص دارند (مثلاً تا انتهای فایل بخوانید). الگوی `while (std::cin >> x)` استانداردترین پاسخ برای این مسائل است. همچنین استفاده از `std::endl` در حلقه‌های تکرار سنگین، مساوی با دریافت قطعی خطای TLE خواهد بود!",
+                        embedded: "فلاش کردن مکرر بافرهای خروجی در سیستم‌های تعبیه‌شده زمان پردازنده را تلف کرده و توان باتری را بیهوده کاهش می‌دهد؛ انتقال به خط بعد با `\\n` رفتار قطعی زمانی سیستم را حفظ می‌کند.",
+                        pitfall: "اشتباه گرفتن جهت فلش‌های ورودی و خروجی، و استفاده از std::endl درون حلقه‌های پرتکرار مسابقات.",
+                        exercise: "برنامه‌ای بنویسید که تعدادی نامعلوم عدد صحیح را از ورودی بخواند (تا زمانی که ورودی تمام شود) و مجموع و میانگین آن‌ها را چاپ کند.",
+                        code: "#include <iostream>\n\nint main() {\n    long long sum{0};\n    long long value{0};\n    int count{0};\n    while (std::cin >> value) {\n        sum += value;\n        ++count;\n    }\n    std::cout << \"تعداد: \" << count << \" | مجموع: \" << sum << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "0.4",
+                        title: "0.4 – عملگرها، عبارات و اولویت‌ها (Operators & Expressions)",
+                        concept: "در فصل چهارم کتاب C++ Primer، عبارات ستون فقرات محاسبات هستند. کتاب کتاب C++ Primer روی تقسیم صحیح (اعشار دور انداخته می‌شود) و تفاوت پیشوندی (`++i`) با پسوندی (`i++`) تأکید ویژه‌ای دارد. همچنین عملگر `%` روی اعداد منفی باقی‌مانده منفی تولید می‌کند؛ فرمول مسابقاتی صحیح برای باقی‌مانده مثبت `(x % m + m) % m` است.",
+                        cph: "خطای گرد کردن ناشی از تقسیم عدد صحیح در فرمول‌های محاسباتی هندسه و میانگین‌گیری، بسیار متداول است.",
+                        embedded: "استفاده از فرم پیشوندی `++i` از ایجاد متغیرهای موقت پنهان در پردازنده جلوگیری می‌کند.",
+                        pitfall: "اشتباه گرفتن عملگر انتساب = با هم‌ارزی ==، و تقسیم دو عدد صحیح بدون تبدیل نوع.",
+                        exercise: "برنامه‌ای بنویسید که یک عدد ۳ رقمی را از ورودی بخواند و با استفاده انحصاری از عملگرهای / و %، مجموع ارقام آن را به دست آورد.",
+                        code: "#include <iostream>\n\nint main() {\n    int a{5}, b{2};\n    double precise = static_cast<double>(a) / b;\n    std::cout << \"تقسیم اعشاری دقیق: \" << precise << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "0.5",
+                        title: "0.5 – ساختارهای کنترلی: if, else و switch چندشاخه",
+                        concept: "در فصل پنجم کتاب C++ Primer (بخش ۵.۳)، تصمیم‌گیری و انتخاب مسیر در برنامه بررسی می‌شود. معمای Else سرگردان (Dangling else) یکی از باگ‌های رایج است که با گذاشتن آکولاد {} حل می‌شود. دستور switch نیز برای شرایط چندگزینه‌ای با break به کار می‌رود.",
+                        cph: "نوشتن شروط ساده و خوانا بدون تودرتو کردن بیش از حد، سرعت دیباگ را در مسابقات بالا می‌برد.",
+                        embedded: "دستور switch در اغلب کامپایلرها به یک جدول پرش (Jump Table) زمان ثابت در حافظه تبدیل می‌شود.",
+                        pitfall: "فراموش کردن break در انتهای هر case دستور switch که باعث اجرای ناخواسته دستورات بعدی می‌شود.",
+                        exercise: "یک ماشین حساب ساده بنویسید که دو عدد و یک عملگر (+, -, *, /) را بخواند و با دستور switch نتیجه را چاپ کند.",
+                        code: "#include <iostream>\n\nint main() {\n    char op{'+'};\n    double a{10.0}, b{5.0};\n    switch (op) {\n        case '+': std::cout << a + b << '\\n'; break;\n        case '-': std::cout << a - b << '\\n'; break;\n        default: std::cout << \"خطا\\n\"; break;\n    }\n    return 0;\n}"
+                    },
+                    {
+                        id: "0.6",
+                        title: "0.6 – حلقه‌ها: while, for, do-while و الگوهای پرکاربرد",
+                        concept: "فصل پنجم C++ Primer حلقه‌های while، for و do-while را به همراه دستورات پرش break و continue آموزش می‌دهد. طبق قانون طلایی کتاب CPH، یک پردازنده در هر ثانیه حدود 10^8 عملیات درون حلقه انجام می‌دهد.",
+                        cph: "محاسبه تعداد تکرار حلقه‌ها پایه تخمین مرتبه زمانی (Big-O) است.",
+                        embedded: "حلقه‌های با شمارنده مشخص اجازه بهینه‌سازی‌های سنگین کامپایلری مانند Loop Unrolling را می‌دهند.",
+                        pitfall: "ایجاد حلقه‌های بی‌نهایت به دلیل تغییر ندادن شمارنده درون بدنه.",
+                        exercise: "جدول ضرب ۱۰ در ۱۰ را با استفاده از دو حلقه for تودرتو تولید و چاپ کنید.",
+                        code: "#include <iostream>\n\nint main() {\n    for (int i{1}; i <= 10; ++i) {\n        for (int j{1}; j <= 10; ++j) {\n            std::cout << i * j << \"\\t\";\n        }\n        std::cout << '\\n';\n    }\n    return 0;\n}"
+                    },
+                    {
+                        id: "0.7",
+                        title: "0.7 – آرایه‌های سنتی C و دلایل مهاجرت به ابزارهای مدرن",
+                        concept: "در فصل سوم کتاب C++ Primer (بخش ۳.۵)، آرایه‌های سنتی زبان C بررسی می‌شوند. آرایه‌های سنتی اندازه خود را در توابع گم می‌کنند (Decay to Pointer)، کنترل مرز ندارند و عامل ایجاد خطای Segmentation Fault هستند. جایگزین مدرن روی پشته `std::array<T, N>` است.",
+                        cph: "استفاده از آرایه‌های محلی بزرگ روی پشته در توابع مسابقاتی خطرناک است؛ در اندازه ثابت از std::array و در اندازه متغیر از std::vector استفاده کنید.",
+                        embedded: "استاندارد Embedded تأکید دارد که `std::array` جایگزین کاملاً ایمن و با سربار صفر نسبت به آرایه سنتی است.",
+                        pitfall: "تعریف آرایه‌های بزرگ درون توابع روی پ栈 به جای حافظه پویا.",
+                        exercise: "برنامه‌ای بنویسید که ۵ نمره را درون یک std::array ذخیره کرده و میانگین آن‌ها را حساب کند.",
+                        code: "#include <iostream>\n#include <array>\n\nint main() {\n    std::array<int, 5> scores{19, 18, 20, 17, 16};\n    std::cout << \"اندازه آرایه: \" << scores.size() << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "0.8",
+                        title: "0.8 – معرفی کامل std::vector (مهم‌ترین کانتینر در سراسر ++C)",
+                        concept: "وکتور (`std::vector`) مهم‌ترین کانتینر پویا در رم است (C++ Primer، بخش ۳.۳). با `push_back` خودکار بزرگ می‌شود و حافظه را پیوسته نگه می‌دارد. هشدار کتاب: عملگر `[]` فقط برای تغییر اعضای موجود است و برای افزودن عضو جدید باید از `push_back` استفاده کرد.",
+                        cph: "بیش از ۹۰٪ کل الگوریتم‌های مسابقاتی بر بستر `std::vector` پیاده‌سازی می‌شوند.",
+                        embedded: "وکتور با تخصیص پیوسته، حداکثر بهره‌وری از حافظه نهان پردازنده (Cache Locality) را تضمین می‌کند.",
+                        pitfall: "نوشتن v[0] = 10 وقتی وکتور خالی است (موجب کرش درجا).",
+                        exercise: "برنامه‌ای بنویسید که N عدد را از کاربر بخواند، درون وکتور بریزد و بزرگ‌ترین و کوچک‌ترین عدد را پیدا کند.",
+                        code: "#include <iostream>\n#include <vector>\n\nint main() {\n    std::vector<int> numbers;\n    numbers.push_back(10);\n    numbers.push_back(20);\n    std::cout << \"اندازه وکتور: \" << numbers.size() << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "0.9",
+                        title: "0.9 – پردازش متن و کلمات با std::string",
+                        concept: "کلاس مدرن `std::string` در C++ Primer (بخش ۳.۲) کار با متن را ایمن و خودکفا می‌کند. برای خواندن یک کلمه از `cin >> s` و برای خواندن سطر کامل از `getline(cin, s)` استفاده می‌شود. متدهای `.substr()`, `.find()` و هدر `<cctype>` بسیار کاربردی هستند.",
+                        cph: "بسیاری از سوالات مسابقات پردازش متن و پالیندروم‌ها بر پایه std::string حل می‌شوند.",
+                        embedded: "مدیریت خودکار حافظه string از خطاهای نشت حافظه و سرریز بافر زبان C جلوگیری می‌کند.",
+                        pitfall: "استفاده از cin >> s برای خواندن جملات فاصله‌دار، و عدم پاکسازی بافر پیش از getline.",
+                        exercise: "برنامه‌ای بنویسید که یک کلمه را بخواند و پالیندروم بودن آن را بررسی کند.",
+                        code: "#include <iostream>\n#include <string>\n\nint main() {\n    std::string text{\"Learning C++\"};\n    std::cout << \"زیررشته: \" << text.substr(9, 3) << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "0.10",
+                        title: "0.10 – توابع: تعریف، فراخوانی، پارامترها و مقادیر بازگشتی",
+                        concept: "در فصل ششم C++ Primer توابع بررسی می‌شوند. استفاده از الگوی بازگشت زودهنگام (Early Return) کدهای شرطی پیچیده را تمیز می‌کند. ارسال پارامترها به صورت پیش‌فرض با مقدار است که باعث کپی می‌شود.",
+                        cph: "ایزوله کردن بخش‌های محاسباتی در توابع مسابقاتی خطاهای اثرات جانبی را از بین می‌برد.",
+                        embedded: "توابع کوچک مناسب درون‌خطی شدن (Inline) توسط کامپایلر هستند.",
+                        pitfall: "فراموش کردن return در تابع غیر void و بازگرداندن ارجاع به متغیر محلی (Dangling Reference).",
+                        exercise: "تابعی بنویسید که اول بودن عدد را بررسی کند.",
+                        code: "#include <iostream>\n\nbool is_prime(long long n) {\n    if (n <= 1) return false;\n    for (long long i{2}; i * i <= n; ++i) {\n        if (n % i == 0) return false;\n    }\n    return true;\n}\n\nint main() {\n    std::cout << \"آیا 17 اول است؟ \" << std::boolalpha << is_prime(17) << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "0.11",
+                        title: "0.11 – ارجاعات (References) و راز جلوگیری از کپی‌های سنگین",
+                        concept: "ارسال با مقدار یک وکتور بزرگ کل داده‌ها را کپی می‌کند؛ اما ارجاع (`&`) نام مستعار متغیر اصلی است. قانون طلایی C++ مدرن: ارسال کانتینرهای بزرگ با `const T&` کپی را به صفر می‌رساند بدون اینکه تابع بتواند داده‌ها را تغییر دهد (C++ Primer بخش ۲.۳ و ۶.۲).",
+                        cph: "فراموش کردن علامت `&` در توابع بازگشتی DFS عامل دریافت TLE در مسابقات است.",
+                        embedded: "حذف کپی‌های پشته‌ای رم برای سیستم‌های با حافظه محدود حیاتی است.",
+                        pitfall: "بازگرداندن ارجاع به متغیر محلی تابع (Dangling Reference).",
+                        exercise: "تابعی بنویسید که دو متغیر صحیح را با ارجاع جابجا کند (my_swap).",
+                        code: "#include <iostream>\n#include <vector>\n\nlong long calculate_sum(const std::vector<int>& data) {\n    long long total{0};\n    for (const auto& val : data) total += val;\n    return total;\n}\n\nint main() {\n    std::vector<int> v(1000, 5);\n    std::cout << \"مجموع: \" << calculate_sum(v) << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "0.12",
+                        title: "0.12 – جادوی مدرن: استنتاج auto، حلقه‌های بازه‌ای و Structured Bindings",
+                        concept: "سه ویژگی شگفت‌انگیز مدرن C++:\n۱. `auto`: استنتاج خودکار نوع توسط کامپایلر.\n۲. حلقه بازه‌ای (`for (const auto& x : v)`): پیمایش تمیز بدون اندیس.\n۳. مقیدسازی ساخت‌یافته (`auto [name, score] = student;` در C++17) برای باز کردن مستقیم جفت‌ها.",
+                        cph: "سرعت کدنویسی را دو برابر کرده و خطاهای تایپی را کاهش می‌دهد.",
+                        embedded: "کامپایلر آن‌ها را به کدهای ماشین فوق‌العاده بهینه بدون سربار تبدیل می‌کند.",
+                        pitfall: "فراموش کردن & در حلقه بازه‌ای وقتی می‌خواهیم اعضا را تغییر دهیم.",
+                        exercise: "پیمایش وکتوری از pairها با structured bindings.",
+                        code: "#include <iostream>\n#include <vector>\n#include <utility>\n#include <string>\n\nint main() {\n    std::vector<std::pair<std::string, int>> scores{{\"علی\", 95}, {\"سارا\", 98}};\n    for (const auto& [name, sc] : scores) {\n        std::cout << name << \": \" << sc << '\\n';\n    }\n    return 0;\n}"
+                    },
+                    {
+                        id: "0.13",
+                        title: "0.13 – اولین قالب مسابقاتی تمیز و حل مسئله کلاسیک (Kadane's Algorithm)",
+                        concept: "ترکیب ورودی/خروجی فوق‌سریع (`ios::sync_with_stdio(false); cin.tie(nullptr);`)، استفاده از نوع ۶۴ بیتی `using i64 = long long;` و حل مسئله کلاسیک بیشترین مجموع زیرآرایه پیوسته (الگوریتم کادانه) در زمان خطی $O(N)$.",
+                        cph: "مرجع فصل ۲ CPH برای الگوریتم کادانه و بهینه‌سازی مسائل زیرآرایه.",
+                        embedded: "قالب مسابقاتی مدرن بدون متغیر سراسری و سازگار با سطوح بهینه‌سازی کامپایلر.",
+                        pitfall: "استفاده از std::endl به جای '\\n' و ایجاد خطای TLE.",
+                        exercise: "پیاده‌سازی کامل الگوریتم کادانه درون قالب مسابقاتی.",
+                        code: "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nusing i64 = long long;\n\nint main() {\n    std::ios::sync_with_stdio(false);\n    std::cin.tie(nullptr);\n    int n{0};\n    if (!(std::cin >> n)) return 0;\n    std::vector<i64> a(n);\n    for (auto& x : a) std::cin >> x;\n\n    i64 max_sum = a[0], cur = a[0];\n    for (size_t i{1}; i < a.size(); ++i) {\n        cur = std::max(a[i], cur + a[i]);\n        max_sum = std::max(max_sum, cur);\n    }\n    std::cout << max_sum << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "0.14",
+                        title: "0.14 – پل نهایی مرحله صفر و آماده‌سازی برای ورود به تفکر الگوریتمی (مرحله ۱)",
+                        concept: "«ارتباط با مباحث قبلی»:\nاین درس برآیند مستقیم تمام مباحث مرحله صفر (از متغیرها و مقداردهی اولیه آکولادی تا vector، ارجاعات const &، توابع و قالب مسابقاتی) است.\n\nمفهوم این پل:\nاکنون شما ابزارهای پایه‌ای زبان را در اختیار دارید. پیش از گام نهادن به مرحله ۱ و مواجهه با مفاهیم سرعت I/O و تحلیل Big-O، باید مطمئن شویم که هیچ ابهامی در نحوه ارسال وکتور به تابع یا جلوگیری از خطاهای زباله حافظه ندارید.",
+                        cph: "تثبیت الگوهای تمیز ورودی/خروجی و توابع ایزوله مسابقاتی.",
+                        embedded: "اطمینان از ایمنی نوع و عدم تخصیص پویای کنترل‌نشده.",
+                        pitfall: "ترس از ترکیب چند مفهوم مختلف در یک ساختار یکپارچه.",
+                        exercise: "برنامه‌ای بنویسید که یک وکتور از اعداد را دریافت کرده، آن را به یک تابع با ارجاع ثابت بفرستد، مجموع، میانگین و بیشترین مقدار را محاسبه کرده و در یک struct مرتب بازگرداند.",
+                        code: "#include <iostream>\n#include <vector>\n#include <numeric>\n#include <algorithm>\n\nstruct Stats {\n    long long sum;\n    double average;\n    long long maximum;\n};\n\nStats analyze_data(const std::vector<long long>& vec) {\n    if (vec.empty()) return {0, 0.0, 0};\n    long long s = std::accumulate(vec.begin(), vec.end(), 0LL);\n    double avg = static_cast<double>(s) / vec.size();\n    long long mx = *std::max_element(vec.begin(), vec.end());\n    return {s, avg, mx};\n}\n\nint main() {\n    std::ios::sync_with_stdio(false);\n    std::cin.tie(nullptr);\n    int n{0};\n    if (std::cin >> n) {\n        std::vector<long long> data(n);\n        for (auto& x : data) std::cin >> x;\n        auto [sum, avg, max_val] = analyze_data(data);\n        std::cout << \"مجموع: \" << sum << \" | میانگین: \" << avg << \" | بیشترین: \" << max_val << '\\n';\n    }\n    return 0;\n}"
+                    }
+                ]
+            },
+            {
+                id: 1,
+                title: "مرحله ۱: پایه‌ریزی مدرن، پل ورود به تفکر الگوریتمی و رفع گلوگاه‌های I/O",
+                weeks: "۵ هفته",
+                hours: "۸-۱۰ ساعت در هفته",
+                focus: "نحو مدرن C++17/20، استنتاج نوع auto، تحلیل پیچیدگی Big-O، ورودی/خروجی فوق‌سریع و آرایه‌های امن",
+                cphRef: "CPH: فصل ۱ (مقدمه و I/O) و فصل ۲ (تحلیل پیچیدگی)",
+                embeddedRef: "Embedded: فصل ۱ (اسطوره‌زدایی و نحو مدرن) و فصل ۶ (مفاهیم فراتر از کلاس‌ها)",
+                lessons: [
+                    {
+                        id: "1.1",
+                        title: "دگردیسی از C++ سنتی به C++ مدرن (auto، حلقه‌های بازه‌ای و Structured Bindings)",
+                        concept: "«ارتباط با مباحث قبلی»:\nاین درس بر پایه درس‌های 0.8 (وکتور)، 0.11 (ارجاعات) و 0.12 (حلقه‌ها و pairها) شکل گرفته است. شما باید تسلط کامل بر تعریف وکتور و پیمایش دستی داشته باشید.\n\nمفهوم جدید:\nجایگزینی اعلام صریح نوع‌ها با auto، حذف حلقه‌های شمارنده‌ای خطاساز با range-based for، و بازکردن چندتایی‌ها با مقیدسازی ساخت‌یافته C++17.",
+                        cph: "کوتاه‌سازی کد مسابقاتی و کاهش خطاهای تایپی در هنگام پیمایش جفت‌ها (std::pair) و ساختارها.",
+                        embedded: "حذف دسترسی‌های اندیسی خارج از محدوده (Out-of-bounds) به طور پیش‌فرض بدون تحمیل حتی ۱ بایت سربار اجرایی.",
+                        pitfall: "کپی ناخواسته داده در حلقه‌های بازه‌ای به دلیل فراموش کردن const auto& و تحمیل زمان اضافی در کانتینرهای حجیم.",
+                        exercise: "بازنویسی یک پیمایش ماتریس سنتی با استفاده از range-based for و ساختاردهی مقادیر با structured bindings.",
+                        code: "#include <iostream>\n#include <vector>\n\nstruct ProblemScore { int user_id; int solved_count; double penalty_time; };\nint main() {\n    std::vector<ProblemScore> scoreboard = {{101, 4, 85.5}, {102, 5, 110.2}};\n    for (const auto& [id, solved, penalty] : scoreboard) {\n        std::cout << \"کاربر: \" << id << \" | حل: \" << solved << \" | جریمه: \" << penalty << '\\n';\n    }\n    return 0;\n}"
+                    },
+                    {
+                        id: "1.2",
+                        title: "ورودی/خروجی فوق‌سریع مسابقاتی و راز جلوگیری قطعی از خطای TLE",
+                        concept: "«ارتباط با مباحث قبلی»:\nمستقیماً ادامه درس‌های 0.3 (ورودی cin) و 0.13 (قالب مسابقاتی) است.\n\nمفهوم جدید:\nقطع همگام‌سازی بین بافرهای C و C++, جداسازی اتصال cin از cout, و جایگزینی کامل std::endl با '\\n'. در حجم‌های بالای ورودی، این دستورات تفاوت بین قبول شدن و مردود شدن (TLE) را رقم می‌زنند.",
+                        cph: "در ورودی‌های بزرگتر از $10^5$، کدهای استاندارد بدون قطع همگام‌سازی قطعا Time Limit Exceeded دریافت می‌کنند.",
+                        embedded: "درک کارکرد بافرهای استریم‌ها و حذف دستورات ناخواسته فلاش سخت‌افزاری که توان پردازنده را تلف می‌کنند.",
+                        pitfall: "استفاده از std::endl درون حلقه‌های سنگین که در هر تکرار بافر را Flush کرده و زمان را تا ۱۰ برابر افزایش می‌دهد.",
+                        exercise: "نوشتن تابعی برای خواندن سریع ۱ میلیون عدد صحیح از ورودی استاندارد.",
+                        code: "#include <iostream>\n\ninline void setup_fast_io() noexcept {\n    std::ios::sync_with_stdio(false);\n    std::cin.tie(nullptr);\n}\nint main() {\n    setup_fast_io();\n    int n; if (!(std::cin >> n)) return 0;\n    std::cout << \"آماده برای خواندن \" << n << \" عدد\\n\";\n    return 0;\n}"
+                    },
+                    {
+                        id: "1.3",
+                        title: "تحلیل پیچیدگی زمانی (Big-O)، قانون طلایی $10^8$ و تخمین پیش از پیاده‌سازی",
+                        concept: "«ارتباط با مباحث قبلی»:\nبرگرفته از درس 0.6 (حلقه‌ها و شمارنده‌ها). شما باید با مفهوم تکرار آشنا باشید تا بتوانید تعداد کل گام‌های یک الگوریتم را بشمارید.\n\nمفهوم جدید:\nمحاسبه مراتب رشد زمانی و فضایی، شناسایی حلقه‌های تودرتو و تخمین سقف مجاز عملیات بر ثانیه در پردازنده‌های سیستم داوری.",
+                        cph: "بر اساس فصل ۲ CPH: اگر N=$10^5$ باشد پیچیدگی مجاز حداکثر $O(N \\log N)$ است.",
+                        embedded: "پیش‌بینی رفتار زمانی الگوریتم در سیستم‌های بلادرنگ (Hard Real-Time) و تضمین بدترین زمان اجرا (WCET).",
+                        pitfall: "نادیده گرفتن ضرایب پنهان در ساختارهای پیچیده در تحلیل صرفاً تئوری.",
+                        exercise: "محاسبه مرتبه زمانی ۳ الگوریتم و مقایسه آن با سقف ۱ ثانیه داوری مسابقات.",
+                        code: "#include <iostream>\n#include <vector>\n\nlong long max_subarray_sum(const std::vector<long long>& arr) {\n    long long best_sum = 0, current_sum = 0;\n    for (const auto& val : arr) {\n        current_sum = std::max(val, current_sum + val);\n        best_sum = std::max(best_sum, current_sum);\n    }\n    return best_sum;\n}\nint main() { std::cout << \"الگوریتم خطی O(N)\\n\"; return 0; }"
+                    },
+                    {
+                        id: "1.4",
+                        title: "آرایه‌ها در عصر جدید: std::vector، std::array و تکنیک حیاتی reserve",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه درس 0.7 و 0.8 (آرایه و وکتور).\n\nمفهوم جدید:\nتفاوت تخصیص استک در std::array با تخصیص پویای هیپ در std::vector؛ درک مکانیزم بازتخصیص مضاعف (Geometric Reallocation) و پیشگیری از آن با دستور `reserve`.",
+                        cph: "جلوگیری از کپی‌های مکرر حافظه در مسابقات به کمک `v.reserve(N)` که زمان اجرای push_back را تضمین می‌کند.",
+                        embedded: "استفاده از std::array در مواردی که اندازه ثابت است تا هیچ تخصیص پویایی در حافظه رم رخ ندهد.",
+                        pitfall: "فراخوانی v.resize(N) به جای v.reserve(N) و سپس استفاده از push_back.",
+                        exercise: "طراحی کانتینری با ظرفیت از پیش تعیین‌شده با std::array و پیاده‌سازی متدهای ایمن درج.",
+                        code: "#include <iostream>\n#include <vector>\n#include <array>\n\nint main() {\n    std::array<int, 5> fixed_arr{10, 20, 30, 40, 50};\n    std::vector<int> dynamic_vec;\n    dynamic_vec.reserve(100000);\n    for (int i = 0; i < 5; ++i) dynamic_vec.push_back(fixed_arr[i] * 2);\n    std::cout << \"ظرفیت وکتور: \" << dynamic_vec.capacity() << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "1.5",
+                        title: "1.5 – پل نهایی مرحله اول و آماده‌سازی برای ورود به مرتب‌سازی و جستجوی دودویی (مرحله ۲)",
+                        concept: "«ارتباط با مباحث قبلی»:\nاین درس تجمیع‌کننده I/O سریع (1.2)، تحلیل پیچیدگی (1.3) و تخصیص بهینه وکتور با reserve (1.4) است.\n\nمفهوم این پل:\nقبل از ورود به مرحله ۲، شما باید کاملاً درک کرده باشید که چرا کدهای مرتب‌سازی ساده $O(N^2)$ برای داده‌های بزرگ با خطای TLE مواجه می‌شوند و چرا به الگوریتم‌های مرتب‌سازی پیشرفته نیاز داریم.",
+                        cph: "تلفیق ورودی سریع با ساختارهای داده‌ای آماده برای مسائل جستجوی اولیه.",
+                        embedded: "اطمینان از مدیریت دقیق تخصیص حافظه پیش از پردازش داده‌های حجیم سنسورها.",
+                        pitfall: "استفاده از الگوریتم‌های کند جستجوی خطی در داده‌های مرتب‌نشده حجیم.",
+                        exercise: "برنامه‌ای بنویسید که ۱۰۰ هزار عدد را با I/O سریع بخواند، با reserve در وکتور ذخیره کند و زمان خواندن را اندازه بگیرد.",
+                        code: "#include <iostream>\n#include <vector>\n\nint main() {\n    std::ios::sync_with_stdio(false);\n    std::cin.tie(nullptr);\n    int n = 100000;\n    std::vector<int> v;\n    v.reserve(n);\n    for(int i=0; i<n; ++i) v.push_back(i);\n    std::cout << \"پیش‌تخصیص موفق برای \" << v.size() << \" عنصر.\\n\";\n    return 0;\n}"
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "مرحله ۲: تکنیک‌های الگوریتمی پایه‌ای، مرتب‌سازی و جستجوی دودویی",
+                weeks: "۶ هفته",
+                hours: "۱۰ ساعت در هفته",
+                focus: "مرتب‌سازی مدرن std::sort، جستجوی دودویی مفهومی روی جواب، دو اشاره‌گر (Two Pointers) و جمع پیشوندی (Prefix Sums)",
+                cphRef: "CPH: فصول ۳ (مرتب‌سازی و باینری سرچ)، ۸ (تحلیل سرشکن و دو اشاره‌گر) و ۹ (پرسش‌های بازه‌ای ایستای ۹.۱)",
+                embeddedRef: "Embedded: فصل ۶ (الگوریتم‌های استاندارد) و فصل ۹ (ایمنی تبدیل انواع)",
+                lessons: [
+                    {
+                        id: "2.1",
+                        title: "مرتب‌سازی مدرن با std::sort و نوشتن لامبدهای مقایسه‌گر سفارشی",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه درس 1.1 (لامبداها) و 0.10 (توابع). شما باید با مفهوم ارسال توابع یا ایجاد بلوک‌های ناشناس آشنا باشید.\n\nمفهوم جدید:\nالگوریتم IntroSort با تضمین $O(N \\log N)$ و قوانین Strict Weak Ordering برای پیاده‌سازی ترتیب‌های چندگانه سفارشی به کمک لامبدا.",
+                        cph: "مرتب‌سازی پایه اکثر الگوریتم‌های حریصانه (Greedy) و پیش‌نیاز حیاتی جستجوی دودویی است.",
+                        embedded: "لامبداهای بدون تسخیر مستقیماً درون‌خطی (Inline) شده و هزینه اشاره‌گر تابع در زبان C را به صفر می‌رسانند.",
+                        pitfall: "استفاده از عملگر <= در تابع مقایسه‌گر که باعث نقض اکید نامساوی ضعیف و Crash برنامه می‌شود.",
+                        exercise: "حل مسئله زمان‌بندی بازه‌ها (Interval Scheduling): مرتب‌سازی جلسات بر اساس زمان پایان.",
+                        code: "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nstruct Interval { int start, end; };\nint main() {\n    std::vector<Interval> tasks = {{1, 4}, {3, 5}, {0, 6}, {5, 7}};\n    std::sort(tasks.begin(), tasks.end(), [](const Interval& a, const Interval& b) {\n        return a.end < b.end;\n    });\n    std::cout << \"جلسات مرتب شدند.\\n\";\n    return 0;\n}"
+                    },
+                    {
+                        id: "2.2",
+                        title: "جستجوی دودویی (Binary Search): از آرایه‌های مرتب تا جستجو روی پاسخ (BSTA)",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه درس 2.1 (مرتب‌سازی)؛ جستجوی دودویی روی آرایه نیازمند مرتب بودن داده‌هاست.\n\nمفهوم جدید:\nیافتن کرانه‌ها با std::lower_bound و تکنیک فراتر: جستجوی دودویی روی تابع یکنواخت تصمیم (Binary Search on Answer).",
+                        cph: "فصل ۳ CPH: تبدیل مسائل دشوار به بررسی درستی گزاره ok(x) در زمان لگاریتمی $O(\\log Ans)$.",
+                        embedded: "حذف حلقه‌های اسکن طولانی و جایگزینی با گام‌های نصف‌شونده بدون تاخیر نامعین.",
+                        pitfall: "سرریز عدد صحیح در محاسبه نقطه میانی با فرمول (L + R) / 2؛ همیشه از L + (R - L) / 2 استفاده کنید.",
+                        exercise: "پیاده‌سازی مسئله تخصیص وظایف کتاب‌فروشی با جستجوی دودویی روی پاسخ.",
+                        code: "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    std::vector<int> data = {10, 20, 30, 30, 30, 40, 50};\n    auto lb = std::lower_bound(data.begin(), data.end(), 30);\n    auto ub = std::upper_bound(data.begin(), data.end(), 30);\n    std::cout << \"تعداد تکرار 30: \" << (ub - lb) << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "2.3",
+                        title: "روش دو اشاره‌گر (Two Pointers) و پنجره لغزان (Sliding Window)",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه مفاهیم اندیس‌گذاری وکتور (0.8) و مرتب‌سازی (2.1).\n\nمفهوم جدید:\nکاهش پیچیدگی از $O(N^2)$ به $O(N)$ سرشکن شده، با حرکت هماهنگ دو اشاره‌گر که هرگز به عقب بازنمی‌گردند.",
+                        cph: "حل مسائل مجموع زیرآرایه و مسئله 2SUM در آرایه مرتب؛ تحلیل دقیق زمان سرشکن (Amortized Analysis).",
+                        embedded: "مدیریت بافرهای جریانی ورودی سنسورها بدون نیاز به بافرهای اضافی و حافظه موقت.",
+                        pitfall: "فراموشی شرط توقف اشاره‌گر سمت راست و دسترسی به خانه‌های خارج از محدوده.",
+                        exercise: "حل مسئله 2SUM در آرایه مرتب با دو اشاره‌گر.",
+                        code: "#include <iostream>\n#include <vector>\n\nbool find_2sum(const std::vector<int>& arr, int target) {\n    int l = 0, r = static_cast<int>(arr.size()) - 1;\n    while (l < r) {\n        int s = arr[l] + arr[r];\n        if (s == target) return true;\n        if (s < target) l++; else r--;\n    }\n    return false;\n}\nint main() {\n    std::vector<int> a = {1, 4, 5, 6, 7, 9, 10};\n    std::cout << \"پاسخ 2SUM: \" << std::boolalpha << find_2sum(a, 12) << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "2.4",
+                        title: "آرایه جمع پیشوندی (Prefix Sums) و آرایه تفاضلی (Difference Array)",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه درس 0.2 و وکتورها (0.8).\n\nمفهوم جدید:\nپیش‌پردازش داده‌ها در $O(N)$ و پاسخ به هر پرسش جمع بازه‌ای در زمان $O(1)$؛ بهینه‌سازی اعمال تغییرات بازه‌ای با تفاضلی.",
+                        cph: "بنیان فصل ۹ CPH برای حل مسائل پرسش‌های ایستا و ماتریس‌های پیشوندی دو‌بعدی.",
+                        embedded: "محاسبه میانگین متحرک سنسورها در بازه‌های زمانی مختلف بدون حلقه و با کمترین بار CPU.",
+                        pitfall: "خطای 1-off در اندیس‌گذاری بازه‌ها و سرریز جمع‌های بزرگ عددی.",
+                        exercise: "پیاده‌سازی جمع پیشوندی دوبعدی برای استخراج مجموع هر زیرمستطیل دلخواه در $O(1)$.",
+                        code: "#include <iostream>\n#include <vector>\n\nclass PrefixSum {\npublic:\n    explicit PrefixSum(const std::vector<long long>& a) : pref_(a.size() + 1, 0) {\n        for (size_t i = 0; i < a.size(); ++i) pref_[i + 1] = pref_[i] + a[i];\n    }\n    long long query(size_t l, size_t r) const { return pref_[r + 1] - pref_[l]; }\nprivate:\n    std::vector<long long> pref_;\n};\nint main() {\n    PrefixSum ps({1, 3, 4, 8, 6, 1, 4, 2});\n    std::cout << \"جمع بازه [3, 6]: \" << ps.query(3, 6) << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "2.5",
+                        title: "2.5 – پل نهایی مرحله دوم و آماده‌سازی برای ورود به کانتینرهای پیشرفته STL (مرحله ۳)",
+                        concept: "«ارتباط با مباحث قبلی»:\nاین درس ترکیب‌کننده مرتب‌سازی (2.1)، جستجوی دودویی (2.2)، دو اشاره‌گر (2.3) و جمع پیشوندی (2.4) است.\n\nمفهوم این پل:\nتا اینجا یاد گرفتیم چطور با وکتورهای مسطح کار کنیم. اما وقتی نیاز به درج و حذف پویا همراه با حفظ مرتب‌سازی داشته باشیم، وکتورهای معمولی کند می‌شوند. در مرحله ۳ وارد کانتینرهای درختی مثل set و map می‌شویم.",
+                        cph: "ترکیب جستجوی دودویی روی جواب با کانتینرهای پویا.",
+                        embedded: "درک چرایی نیاز به ساختارهای داده غیرخطی در سیستم‌های رخدادمحور.",
+                        pitfall: "تلاش برای استفاده از binary_search روی وکتور مرتب‌نشده.",
+                        exercise: "برنامه‌ای بنویسید که آرایه‌ای را مرتب کرده و با lower_bound و جمع پیشوندی پرسش‌های بازه‌ای را پاسخ دهد.",
+                        code: "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    std::vector<int> v = {5, 2, 9, 1, 7};\n    std::sort(v.begin(), v.end());\n    bool found = std::binary_search(v.begin(), v.end(), 7);\n    std::cout << \"آیا عدد ۷ وجود دارد؟ \" << std::boolalpha << found << '\\n';\n    return 0;\n}"
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "مرحله ۳: کانتینرهای پیشرفته STL، دستکاری بیتی و مدیریت منابع RAII",
+                weeks: "۶ هفته",
+                hours: "۱۰-۱۲ ساعت در هفته",
+                focus: "std::set, std::map, std::priority_queue, هدر مدرن <bit>, RAII و std::expected",
+                cphRef: "CPH: فصول ۴ (ساختارهای داده) و ۱۰ (دستکاری بیتی)",
+                embeddedRef: "Embedded: فصول ۷ (مدیریت خطا)، ۱۰ (لامبدا) و ۱۷ (کتابخانه‌ها و ETL)",
+                lessons: [
+                    {
+                        id: "3.1",
+                        title: "کانتینرهای رابطه‌ای درختی و درهم‌سازی (set/map در برابر unordered)",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه درس 0.8 (وکتور) و 2.1 (مرتب‌سازی).\n\nمفهوم جدید:\nدرخت سرخ-سیاه با زمان لگاریتمی مرتب در برابر جدول درهم‌سازی با $O(1)$ میانگین و چالش بدترین حالت $O(N)$. شناخت دقیق مزایا و معایب هر کدام در مسابقات.",
+                        cph: "درک عمیق ثابت زمانی (Constant Factor) و چرایی برتری مرتب‌سازی بر کانتینرهای سنگین در مسابقات.",
+                        embedded: "پرهیز از تخصیص‌های مکرر گره‌ای در رم به منظور جلوگیری از پدیده قطعه‌قطعه شدن حافظه (Fragmentation).",
+                        pitfall: "فراخوانی std::lower_bound روی std::set به جای متد عضو s.lower_bound(x) که زمان را $O(N)$ می‌کند.",
+                        exercise: "حل مسئله محاسبه تعداد عناصر متمایز در یک پنجره متحرک با کانتینرهای مناسب.",
+                        code: "#include <iostream>\n#include <set>\n\nint main() {\n    std::set<int> s = {15, 45, 60, 25};\n    s.insert(30);\n    auto it = s.lower_bound(28);\n    if (it != s.end()) std::cout << \"کوچک‌ترین مقدار >= 28: \" << *it << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "3.2",
+                        title: "صف اولویت (std::priority_queue) و کاربرد در الگوریتم‌های حریصانه",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه وکتورها (0.8) و مرتب‌سازی (2.1).\n\nمفهوم جدید:\nساختار هرم کمینه و بیشینه بر بستر بردار و جایگزینی آن به جای درخت‌های درهم‌پیچیده دستی برای دسترسی سریع به کوچک‌ترین یا بزرگ‌ترین عنصر.",
+                        cph: "پایه اصلی الگوریتم دایکسترا و مسائل انتخاب بهینه لحظه‌ای در الگوریتم‌های حریصانه.",
+                        embedded: "توزیع پیوسته داده‌ها درون حافظه موضعی (Cache Locality) به دلیل استفاده از بردار داخلی.",
+                        pitfall: "فراموشی این که صف اولویت C++ به طور پیش‌فرض Max-Heap است و برای Min-Heap نیاز به std::greater دارد.",
+                        exercise: "پیاده‌سازی الگوریتم یافتن میانه متحرک به کمک دو صف اولویت متقارن.",
+                        code: "#include <iostream>\n#include <queue>\n#include <vector>\n\nint main() {\n    std::priority_queue<int, std::vector<int>, std::greater<int>> min_heap;\n    min_heap.push(40); min_heap.push(10); min_heap.push(30);\n    std::cout << \"مینیمم هرم: \" << min_heap.top() << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "3.3",
+                        title: "تسلط بر عملیات بیتی مدرن با هدر <bit> در C++20",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه انواع داده صحیح (0.2) و عملگرهای بیتی (0.4).\n\nمفهوم جدید:\nدستورات سخت‌افزاری عصب ماشین (POPCNT)، نمایش زیرمجموعه‌ها به صورت عدد صحیح و چرخش بیتی با توابع استاندارد هدر `<bit>`.",
+                        cph: "فصل ۱۰ CPH: مدل‌سازی وضعیت‌های مجموعه‌ای تا اندازه ۳۰ در قالب یک عدد صحیح و اعمال مجموعه‌ای در $O(1)$.",
+                        embedded: "ترجمه مستقیم به تک‌دستورهای پردازنده ARM/x86 بدون شاخه‌بندی شرطی (Branchless).",
+                        pitfall: "عدم اولویت‌بندی پرانتزها در عبارات بیتی مانند (mask & (1 << i)) != 0.",
+                        exercise: "پیمایش تمام زیرمجموعه‌های یک ماسک با فرمول b = (b - mask) & mask.",
+                        code: "#include <iostream>\n#include <bit>\n\nint main() {\n    unsigned int mask = 0b101101;\n    std::cout << \"تعداد بیت‌های فعال: \" << std::popcount(mask) << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "3.4",
+                        title: "مدیریت ایمن منابع (RAII) و بازگشت نتایج با std::expected در C++23",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه توابع (0.10) و مدیریت متغیرها.\n\nمفهوم جدید:\nکنترل چرخه حیات منابع بدون نیازمندی به new/delete دستی و ارسال نتایج عملیات بدون سربار استثناها (Zero-Overhead Error Handling).",
+                        cph: "ایزوله‌سازی متغیرهای تست‌کیس‌ها و پیشگیری از سرایت اثرات جانبی تست قبلی به تست فعلی.",
+                        embedded: "حذف کامل حافظه پنهان Exception Unwind Table و رعایت قوانین ایمنی MISRA.",
+                        pitfall: "دسترسی به شیء تهی بدون اعتبارسنجی اولیه has_value().",
+                        exercise: "طراحی کلاسی برای خواندن امن فایل مسابقاتی با استفاده از تکنیک RAII.",
+                        code: "#include <iostream>\n#include <expected>\n\nenum class MathError { DivisionByZero };\nstd::expected<double, MathError> safe_divide(double a, double b) {\n    if (b == 0.0) return std::unexpected(MathError::DivisionByZero);\n    return a / b;\n}\nint main() {\n    auto res = safe_divide(10.0, 2.0);\n    if (res) std::cout << \"نتیجه: \" << *res << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "3.5",
+                        title: "3.5 – پل نهایی مرحله سوم و آماده‌سازی برای ورود به جستجوی کامل و برنامه‌نویسی پویا (مرحله ۴)",
+                        concept: "«ارتباط با مباحث قبلی»:\nاین درس ارتباط بین کانتینرهای پیشرفته (set/priority_queue) و ماسک‌های بیتی هدر bit را برای ورود به مرحله ۴ برقرار می‌کند.\n\nمفهوم این پل:\nبرای ورود به دنیای Backtracking و DP، شما باید توانایی ترکیب بیت‌منیپالیشن با کانتینرها را داشته باشید تا بتوانید حالات جستجو را ذخیره کنید.",
+                        cph: "آمادگی برای مسائل ترکیبیاتی سنگین و مدیریت حالت‌های گراف.",
+                        embedded: "مدیریت بهینه حافظه هنگام بازگشت‌های عمیق.",
+                        pitfall: "فراموشی به‌روزرسانی حالت‌های بیتی در بازگشت‌ها.",
+                        exercise: "برنامه‌ای بنویسید که با صف اولویت و ماسک بیتی داده‌ها را پردازش کند.",
+                        code: "#include <iostream>\n#include <queue>\n\nint main() {\n    std::priority_queue<int> pq;\n    pq.push(10); pq.push(20);\n    std::cout << \"بالاترین اولویت: \" << pq.top() << '\\n';\n    return 0;\n}"
+                    }
+                ]
+            },
+            {
+                id: 4,
+                title: "مرحله ۴: جستجوی کامل، هرس و برنامه‌نویسی پویا (Dynamic Programming) - نسخه توسعه‌یافته",
+                weeks: "۸ هفته",
+                hours: "۱۲-۱۴ ساعت در هفته",
+                focus: "مبانی بازگشت و Backtracking گام‌به‌گام، هرس هوشمند، الگوی تکرار و یادداشت‌برداری (Memoization)، و برنامه‌نویسی پویای کلاسیک و ماسک بیتی",
+                cphRef: "CPH: فصول ۵ (جستجوی کامل) و ۷ (برنامه‌نویسی پویا)",
+                embeddedRef: "Embedded: فصل ۱۱ (محاسبات زمان کامپایل) و فصل ۱۰ (لامبدا)",
+                lessons: [
+                    {
+                        id: "4.1",
+                        title: "4.1 – مبانی بازگشت (Recursion) و طراحی درخت تصمیم در Backtracking",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه درس 0.10 (توابع) و 0.6 (حلقه‌ها). شما باید با مفهوم پشته اجرایی و فراخوانی تابع آشنا باشید.\n\nمفهوم جدید:\nتابعی که خودش را صدا می‌زند (Recursion) پایه حل مسائل ترکیبی است. در این درس یاد می‌گیریم چطور زیرمجموعه‌ها و جایگشت‌ها را با رسم درخت تصمیم و الگوی Backtracking تولید کنیم.",
+                        cph: "پایه حل مسائل تولید حالات و بررسی تمام گزینه‌های ممکن در فضای جستجو.",
+                        embedded: "مدیریت قاب‌های پشته (Stack Frames) و آگاهی از خطر Stack Overflow در صورت عدم تعیین شرط پایه.",
+                        pitfall: "فراموش کردن شرط پایه (Base Case) که باعث ایجاد حلقه بازگشتی بی‌نهایت می‌شود.",
+                        exercise: "تابعی بازگشتی بنویسید که تمام زیرمجموعه‌های یک وکتور کوچک را تولید و چاپ کند.",
+                        code: "#include <iostream>\n#include <vector>\n\nvoid generate_subsets(int index, const std::vector<int>& nums, std::vector<int>& current) {\n    if (index == nums.size()) {\n        std::cout << \"{ \";\n        for (int x : current) std::cout << x << \" \";\n        std::cout << \"}\\n\";\n        return;\n    }\n    generate_subsets(index + 1, nums, current);\n    current.push_back(nums[index]);\n    generate_subsets(index + 1, nums, current);\n    current.pop_back();\n}\nint main() {\n    std::vector<int> nums = {1, 2};\n    std::vector<int> curr;\n    generate_subsets(0, nums, curr);\n    return 0;\n}"
+                    },
+                    {
+                        id: "4.2",
+                        title: "4.2 – هرس شاخه‌ها (Pruning) و یادداشت‌برداری (Memoization / Top-Down DP)",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه درس 4.1 (بازگشت) و کانتینرهای map/vector (0.8 و 3.1).\n\nمفهوم جدید:\nچرا بازگشت ساده کند است؟ چون زیرمسائل تکراری را هزاران بار حساب می‌کند! با تکنیک Memoization (ذخیره نتایج قبلی در جدول) و هرس شاخه‌های غیرممکن، سرعت اجرا از نمایی ($2^N$) به خطی یا چندجمله‌ای تبدیل می‌شود.",
+                        cph: "تفاوت اجرای یک کد با TLE قطعی و حل آن در کسری از ثانیه با یک جدول کش ساده.",
+                        embedded: "کاهش مصرف پردازنده با ذخیره خروجی توابع سنگین در حافظه موقت (Look-up Table).",
+                        pitfall: "مقداردهی اولیه نکردن جدول یادداشت‌برداری (مثلاً پر کردن با مقدار -1 برای تشخیص محاسبه‌نشده‌ها).",
+                        exercise: "محاسبه اعداد فیبوناچی با بازگشت ساده در برابر بازگشت همراه با Memoization.",
+                        code: "#include <iostream>\n#include <vector>\n\nlong long fib(int n, std::vector<long long>& memo) {\n    if (n <= 1) return n;\n    if (memo[n] != -1) return memo[n];\n    return memo[n] = fib(n - 1, memo) + fib(n - 2, memo);\n}\nint main() {\n    int n = 50;\n    std::vector<long long> memo(n + 1, -1);\n    std::cout << \"فیبوناچی 50: \" << fib(n, memo) << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "4.3",
+                        title: "4.3 – برنامه‌نویسی پویای تکراری (Bottom-Up DP) و الگوهای کلاسیک (Coin Change / LIS)",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه درس 4.2 (Memoization) و حلقه‌ها (0.6).\n\nمفهوم جدید:\nتبدیل رویکرد بالا به پایین (Top-Down) به جدول تکراری پایین به بالا (Bottom-Up). در این روش بدون خطر سرریز پشته بازگشتی، جدول DP را با حلقه‌ها پر می‌کنیم تا حداکثر بهره‌وری از کش پردازنده حاصل شود.",
+                        cph: "فصل ۷ CPH: مسائل کوله‌پشتی ۰ و ۱، سکه‌ها و طولانی‌ترین زیردنباله صعودی (LIS).",
+                        embedded: "حذف کامل پشته بازگشتی و تضمین قطعیت مصرف حافظه در سخت‌افزار.",
+                        pitfall: "اشتباه در ترتیب پر کردن جدول یا مقداردهی اولیه پایه‌های جدول.",
+                        exercise: "پیاده‌سازی مسئله Longest Increasing Subsequence (LIS) در زمان $O(N \\log N)$.",
+                        code: "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nint main() {\n    std::vector<int> arr = {10, 9, 2, 5, 3, 7, 101, 18};\n    std::vector<int> dp;\n    for (int x : arr) {\n        auto it = std::lower_bound(dp.begin(), dp.end(), x);\n        if (it == dp.end()) dp.push_back(x);\n        else *it = x;\n    }\n    std::cout << \"طول LIS: \" << dp.size() << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "4.4",
+                        title: "4.4 – تکنیک نیمه‌سازی جستجو (Meet-in-the-Middle) و Bitmask DP",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه جستجوی دودویی (2.2) و عملیات بیتی (3.3).\n\nمفهوم جدید:\nوقتی اندازه مسئله بزرگ است ($N=40$) و $2^{40}$ غیرممکن است، با تکنیک Meet-in-the-Middle مسئله را به دو نیمه $2^{20}$ تقسیم می‌کنیم. همچنین با Bitmask DP وضعیت مجموعه‌ها را در عدد صحیح ذخیره می‌کنیم.",
+                        cph: "شکستن مسائل نمایی بزرگ و تبدیل آن‌ها به بازه‌های قابل حل در مسابقات سطح پیشرفته.",
+                        embedded: "بهینه‌سازی حداکثری فضای حافظه با بسته‌بندی بیت‌ها.",
+                        pitfall: "مرتب نکردن نیمه دوم جهت جستجوی دودویی پس از تولید حالت‌ها.",
+                        exercise: "پیاده‌سازی الگوریتم Meet-in-the-middle برای مسئله Subset Sum.",
+                        code: "#include <iostream>\n#include <vector>\n\nint main() {\n    std::cout << \"تکنیک Meet-in-the-middle آماده است.\\n\";\n    return 0;\n}"
+                    },
+                    {
+                        id: "4.5",
+                        title: "4.5 – پل نهایی مرحله چهارم و آماده‌سازی برای ورود به الگوریتم‌های گراف و درخت (مرحله ۵)",
+                        concept: "«ارتباط با مباحث قبلی»:\nاین درس بازنگری جامع بازگشت، Memoization و جدول‌بندی تکراری مرحله ۴ است.\n\nمفهوم این پل:\nگراف‌ها چیزی جز درخت‌های تصمیم‌گیری به هم پیوسته نیستند. با تسلط بر روش‌های بازگشتی و یادداشت‌برداری مرحله ۴، اکنون آماده‌ایم وارد دنیای گراف، دایکسترا و درخت بازه‌ها شویم.",
+                        cph: "پیوستگی مفاهیم از حالت‌های خطی و بازه‌ای به شبکه‌های دوبعدی گراف.",
+                        embedded: "آمادگی برای پیاده‌سازی پشته‌های پیمایش گراف روی سخت‌افزار.",
+                        pitfall: "بی‌توجهی به بررسی حلقه‌ها (Cycles) در پیمایش‌های گراف.",
+                        exercise: "برنامه‌ای بنویسید که یک گراف ساده را با وکتور دو‌بعدی ذخیره کرده و پیاده‌سازی بازگشتی DFS را روی آن تمرین کند.",
+                        code: "#include <iostream>\n#include <vector>\n\nint main() {\n    int n = 3;\n    std::vector<std::vector<int>> adj(n);\n    adj[0].push_back(1);\n    std::cout << \"گراف آماده پیمایش در مرحله ۵ است.\\n\";\n    return 0;\n}"
+                    }
+                ]
+            },
+            {
+                id: 5,
+                title: "مرحله ۵: الگوریتم‌های گراف، درخت‌ها و ساختارهای داده پیشرفته",
+                weeks: "۸ هفته",
+                hours: "۱۲ ساعت در هفته",
+                focus: "پیمایش‌های DFS/BFS، کوتاه‌ترین مسیر دایکسترا، DSU، درخت بازه‌ها (Segment Tree) و درخت فنویک",
+                cphRef: "CPH: فصول ۱۱ تا ۱۵ و ۲۸ (درخت بازه‌ها)",
+                embeddedRef: "Embedded: فصل ۵ (کلاس‌ها و ارجاعات) و فصل ۸ (قالب‌ها و مفاهیم)",
+                lessons: [
+                    {
+                        id: "5.1",
+                        title: "نمایش مدرن گراف و پیمایش‌های DFS و BFS با لامبداهای بازگشتی",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه وکتورها (0.8)، ارجاعات (0.11) و بازگشت (4.1).\n\nمفهوم جدید:\nلیست مجاورت بر پایه بردارها، پیاده‌سازی DFS با بستارهای محلی (Lambdas) بدون نیاز به متغیرهای سراسری خطرناک، و پیمایش سطحی BFS با صف.",
+                        cph: "تشخیص دور، مؤلفه‌های همبندی، و دورهای اویلری/همیلتونی در گراف‌های مسابقاتی.",
+                        embedded: "حذف متغیرهای سراسری (Global State) و کپسوله‌سازی کامل پیمایش درون تابع محلی.",
+                        pitfall: "علامت‌گذاری دیرهنگام راس در صف BFS که باعث پر شدن سریع حافظه می‌شود.",
+                        exercise: "یافتن کوتاه‌ترین مسیر در گراف بدون وزن به کمک BFS.",
+                        code: "#include <iostream>\n#include <vector>\n\nint main() {\n    int n = 5;\n    std::vector<std::vector<int>> adj(n);\n    adj[0] = {1, 2}; adj[1] = {3}; adj[2] = {4};\n    std::vector<bool> visited(n, false);\n    auto dfs = [&](auto& self, int u) -> void {\n        visited[u] = true;\n        std::cout << \"راس: \" << u << '\\n';\n        for (int v : adj[u]) if (!visited[v]) self(self, v);\n    };\n    dfs(dfs, 0);\n    return 0;\n}"
+                    },
+                    {
+                        id: "5.2",
+                        title: "کوتاه‌ترین مسیر دایکسترا با صف اولویت و هرس فاصله‌های کهنه",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه صف اولویت (3.2) و لیست مجاورت گراف (5.1).\n\nمفهوم جدید:\nالگوریتم دایکسترا با Min-Heap و هرس فوری فاصله‌های غیربهینه برای جلوگیری از اتلاف زمان در گراف‌های وزن‌دار.",
+                        cph: "هرس `if (d > dist[u]) continue;` کلید اصلی پاس شدن تست‌های فشرده سامانه داوری است.",
+                        embedded: "تضمین حافظه ترتیبی بدون نیاز به اشاره‌گرهای پیوندی پیچیده گراف.",
+                        pitfall: "استفاده از نوع int برای وزن‌ها که منجر به سرریز عددی می‌شود.",
+                        exercise: "توسعه دایکسترا برای چاپ کردن مسیر بهینه.",
+                        code: "#include <iostream>\n#include <vector>\n#include <queue>\n\nint main() {\n    std::cout << \"دایکسترا با priority_queue آماده است.\\n\";\n    return 0;\n}"
+                    },
+                    {
+                        id: "5.3",
+                        title: "ساختار مجموعه‌های مجزا (DSU) با Path Compression و Union by Size",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه آرایه‌ها و توابع (0.7 و 0.10).\n\nمفهوم جدید:\nمدیریت زیرمجموعه‌ها در زمان سرشکن شده تقریباً ثابت $O(\\alpha(N))$ و پیاده‌سازی الگوریتم درخت پوشای کمینه کروسکال.",
+                        cph: "یکی از پرتکرارترین ساختارها در مسابقات برای مؤلفه‌های دینامیک و گراف‌های دوبخشی.",
+                        embedded: "پیاده‌سازی کاملاً ایستا بر بستر دو بردار مسطح بدون تخصیص حافظه در حین اجرا.",
+                        pitfall: "فراموشی انتساب والد در متد find (`parent[u] = find(parent[u])`).",
+                        exercise: "پیاده‌سازی الگوریتم کروسکال با DSU جهت یافتن MST.",
+                        code: "#include <iostream>\n#include <vector>\n#include <numeric>\n\nclass DSU {\npublic:\n    explicit DSU(int n) : parent_(n), size_(n, 1) { std::iota(parent_.begin(), parent_.end(), 0); }\n    int find(int u) { return parent_[u] == u ? u : parent_[u] = find(parent_[u]); }\n    bool unite(int u, int v) {\n        int ru = find(u), rv = find(v);\n        if (ru == rv) return false;\n        if (size_[ru] < size_[rv]) std::swap(ru, rv);\n        parent_[rv] = ru; size_[ru] += size_[rv];\n        return true;\n    }\nprivate:\n    std::vector<int> parent_, size_;\n};\nint main() {\n    DSU dsu(5);\n    dsu.unite(1, 2); dsu.unite(2, 3);\n    std::cout << \"همبندی ۱ و ۳: \" << std::boolalpha << (dsu.find(1) == dsu.find(3)) << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "5.4",
+                        title: "درخت بازه‌ها (Segment Tree) تکراری و مدرن با C++20 Concepts",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه آرایه‌ها (0.7) و مفاهیم پیشرفته C++20.\n\nمفهوم جدید:\nپیاده‌سازی Bottom-Up بدون پشته بازگشتی در آرایه $2N$ و اعمال عملگرهای مونوئید دلخواه در زمان $O(\\log N)$.",
+                        cph: "فصل ۲۸ CPH: پاسخگویی و به‌روزرسانی در بازه‌های متغیر پویا با سرعت ۴ برابر پیاده‌سازی بازگشتی.",
+                        embedded: "استفاده از Concepts تضمین می‌کند که نوع داده‌ها در زمان کامپایل بررسی شده و هیچ vtable تحمیل نشود.",
+                        pitfall: "اشتباه در مرزبندی بازه‌های نیمه‌باز `[left, right)` هنگام محاسبات اندیس‌ها.",
+                        exercise: "پیاده‌سازی Segment Tree برای RMQ به همراه به‌روزرسانی نقطه‌ای.",
+                        code: "#include <iostream>\n#include <vector>\n\nint main() {\n    std::cout << \"درخت بازه‌ها تکراری Bottom-Up آماده است.\\n\";\n    return 0;\n}"
+                    },
+                    {
+                        id: "5.5",
+                        title: "5.5 – پل نهایی مرحله پنجم و آماده‌سازی برای ورود به معماری صفر-سربار و پیشرفته (مرحله ۶)",
+                        concept: "«ارتباط با مباحث قبلی»:\nاین درس مروری بر تمام ساختارهای گراف، دایکسترا و درخت بازه‌ها در مرحله ۵ است.\n\nمفهوم این پل:\nحالا که مسلط به ساختارهای داده پیچیده شدیم، وقت آن است که در مرحله ۶ یاد بگیریم چطور معماری کدهایمان را با الگوهای مهندسی نرم‌افزار (CRTP و PMR) به بالاترین سطح کارایی برسانیم.",
+                        cph: "سنتز مهندسی و بهینه‌سازی نهایی کد.",
+                        embedded: "آمادگی برای طراحی سیستم‌های بلادرنگ بزرگ.",
+                        pitfall: "پیچیدگی بیش از حد کد بدون نیازسنجی دقیق معماری.",
+                        exercise: "برنامه‌ای بنویسید که گراف و درخت بازه‌ها را در یک ساختار ماژولار ترکیب کند.",
+                        code: "#include <iostream>\nint main() {\n    std::cout << \"آماده برای مرحله ۶ و معماری پیشرفته.\\n\";\n    return 0;\n}"
+                    }
+                ]
+            },
+            {
+                id: 6,
+                title: "مرحله ۶: معماری پایدار، انتزاع با هزینه صفر و قالب مسابقاتی",
+                weeks: "۴ هفته",
+                hours: "۱۰ ساعت در هفته",
+                focus: "مقدمه‌ای بر تمپلیت‌ها و زمان کامپایل، الگوی CRTP، تخصیص‌دهنده‌های PMR، مدیریت حافظه قطعی، Strong Types و سنتز قالب استاندارد C++20",
+                cphRef: "CPH: استراتژی‌های مسابقات و تست‌کیس‌های گوشه‌ای",
+                embeddedRef: "Embedded: فصول ۸ (CRTP)، ۹ (Strong Types)، ۱۷ (PMR) و ۱۸ (طراحی تمیز)",
+                lessons: [
+                    {
+                        id: "6.1",
+                        title: "6.1 – مقدمه‌ای بر تمپلیت‌ها (Templates) و متاپراگرامینگ زمان کامپایل",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه توابع (0.10) و انواعی که تا اینجا شناختیم.\n\nمفهوم جدید:\nپیش از ورود به CRTP و تخصیص‌دهنده‌های پیشرفته، باید بدانیم تمپلیت‌ها چطور به کامپایلر دستور می‌دهند کدهای اختصاصی برای هر نوع داده در زمان کامپایل تولید کنند (`template <typename T>`). این پایه اصلی تمام انتزاعات بدون سربار است.",
+                        cph: "ساخت کانتینرها و توابع عمومی بدون افت سرعت اجرا.",
+                        embedded: "انتقال محاسبات از زمان اجرا به زمان کامپایل (Compile-Time) با constexpr.",
+                        pitfall: "افزایش حجم فایل باینری (Code Bloat) در اثر استفاده بیش از حد از تمپلیت‌های متنوع.",
+                        exercise: "تابعی تمپلیت بنویسید که بیشترین مقدار بین دو داده از هر نوعی را برگرداند.",
+                        code: "#include <iostream>\n\ntemplate <typename T>\nT my_max(T a, T b) {\n    return (a > b) ? a : b;\n}\nint main() {\n    std::cout << \"بیشترین: \" << my_max(10, 20) << \" | \" << my_max(3.14, 2.71) << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "6.2",
+                        title: "چندریختی زمان کامپایل (CRTP) به جای توابع مجازی پرهزینه",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه درس 6.1 (تمپلیت‌ها) و شیءگرایی.\n\nمفهوم جدید:\nالگوی قالب‌های متناوب (CRTP) برای ارث‌بری ایستا بدون جدول توابع مجازی (vtable) و بدون غیرمستقیم‌سازی اشاره‌گر، که حداکثر سرعت اینلاین شدن را فراهم می‌کند.",
+                        cph: "امکان نوشتن کد الگوریتمی ماژولار بدون از دست دادن حتی یک نانوثانیه در مقایسه با کد دست‌نویس.",
+                        embedded: "حذف ردپای جدول مجازی از حافظه Flash و فراهم‌سازی شرایط بهینه‌سازی کامل Inlining.",
+                        pitfall: "فراخوانی متدهای فرزند درون سازنده کلاس والد، پیش از ساخت کامل نمونه.",
+                        exercise: "طراحی کلاس پایه CRTP برای ساختارهای داده تعویض‌پذیر.",
+                        code: "#include <iostream>\n\ntemplate <typename Derived>\nclass TreeSolver {\npublic:\n    void solve() { static_cast<Derived*>(this)->solve_impl(); }\n};\nclass FastAlgo : public TreeSolver<FastAlgo> {\npublic:\n    void solve_impl() { std::cout << \"حل سریع بدون vtable!\\n\"; }\n};\nint main() {\n    FastAlgo algo;\n    algo.solve();\n    return 0;\n}"
+                    },
+                    {
+                        id: "6.3",
+                        title: "تایپ‌ایمنی سخت‌گیرانه (Strong Types) برای پیشگیری از اشتباهات پارامتری",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه تعریف کلاس‌ها و کپسوله‌سازی.\n\nمفهوم جدید:\nکپسوله‌سازی انواع اولیه با سازنده explicit برای جلوگیری از جابجا گرفتن گره‌ها و وزن‌ها در توابع گراف.",
+                        cph: "ساخت کلاس ModInt ماژولار که از خطاهای سرریز و فراموشی باقی‌مانده $10^9+7$ پیشگیری قطعی می‌کند.",
+                        embedded: "تضمین زمان کامپایل با صفر بایت حافظه و دستور اضافه در فایل اجرایی نهایی.",
+                        pitfall: "حذف کلمه کلیدی explicit از سازنده نوع قوی.",
+                        exercise: "پیاده‌سازی کلاس خودکار ModInt با عملگرهای ریاضی ماژولار.",
+                        code: "#include <iostream>\n\nclass NodeId {\npublic:\n    explicit constexpr NodeId(int id) : id_(id) {}\n    [[nodiscard]] constexpr int get() const noexcept { return id_; }\nprivate:\n    int id_;\n};\nint main() {\n    NodeId u{1}, v{2};\n    std::cout << \"گره مبدا: \" << u.get() << \" | گره مقصد: \" << v.get() << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "6.4",
+                        title: "تخصیص‌دهنده‌های حافظه چندریختی (std::pmr) برای سرعت $O(1)$ در تخصیص بردارها",
+                        concept: "«ارتباط با مباحث قبلی»:\nبر پایه وکتورها (0.8) و مدیریت حافظه (3.4).\n\nمفهوم جدید:\nاستفاده از monotonic_buffer_resource بر بستر حافظه استاتیک برای حذف کامل کندی malloc/new در مسابقات فشرده.",
+                        cph: "سرعت نجومی در مسائلی که نیاز به تعریف صدها هزار بردار کوچک درون گراف دارند.",
+                        embedded: "قطعیت ۱۰۰ درصدی زمان تخصیص و رفع خطر اتمام ناگهانی حافظه پویا.",
+                        pitfall: "تمام شدن بافر محلی پیش از پایان محاسبات که باعث بازگشت به Allocator پیش‌فرض می‌شود.",
+                        exercise: "مقایسه سرعت تعریف وکتورهای محلی با std::pmr::vector در برابر std::vector استاندارد.",
+                        code: "#include <iostream>\n#include <vector>\n#include <array>\n#include <memory_resource>\n\nint main() {\n    std::array<std::byte, 65536> stack_buffer;\n    std::pmr::monotonic_buffer_resource mem_pool(stack_buffer.data(), stack_buffer.size());\n    std::pmr::vector<int> fast_vec(&mem_pool);\n    for (int i = 0; i < 1000; ++i) fast_vec.push_back(i * 2);\n    std::cout << \"اندازه وکتور در بافر استاتیک: \" << fast_vec.size() << '\\n';\n    return 0;\n}"
+                    },
+                    {
+                        id: "6.5",
+                        title: "6.5 – الگوی جامع مسابقات C++20/23 و سنتز نهایی نقشه راه",
+                        concept: "«ارتباط با مباحث قبلی»:\nاین درس ترکیب نهایی تمام ۷ مرحله (از درس صفرم C++ Primer تا معماری صفر-سربار) است.\n\nمفهوم جدید:\nقالب ایزوله‌شده، بدون ماکروهای نامطمئن C-Style، پشتیبانی از تایپ‌های ۶۴ بیتی، بهینه‌سازی کامل I/O و استراتژی شرکت در مسابقات.",
+                        cph: "تدوین استراتژی حل مسئله در محیط آزمون و نحوه ساخت تست‌کیس‌های استرس محلی.",
+                        embedded: "سازگار با استانداردهای مدرن کامپایلرهای GCC 13+ و Clang.",
+                        pitfall: "نگهداری داده‌های تست‌کیس‌های قبلی در متغیرهای سراسری پاک‌نشده.",
+                        exercise: "حل ۳ مسئله استاندارد مسابقاتی با استفاده انحصاری از قالب مدرن.",
+                        code: "#include <iostream>\n#include <vector>\n#include <algorithm>\n\nusing i64 = long long;\ninline void fast_io() noexcept {\n    std::ios::sync_with_stdio(false);\n    std::cin.tie(nullptr);\n}\nint main() {\n    fast_io();\n    std::cout << \"شاسی مسابقاتی آماده است.\\n\";\n    return 0;\n}"
+                    }
+                ]
+            }
+        ];
+
+        const checkpointsData = [
+            {
+                id: "cp0",
+                stageTitle: "چک‌پوینت پل‌محور مرحله ۰: مبانی پایه و درس صفر (C++ Primer)",
+                tasks: [
+                    { id: "t0_1", text: "درک ساختار تابع main و خروجی تمیز با std::cout و کاراکتر '\\n'" },
+                    { id: "t0_2", text: "تعریف متغیرها با مقداردهی اولیه آکولادی {} و تسلط بر بازه int و long long" },
+                    { id: "t0_3", text: "اجرای الگوی ورودی تا پایان فایل با while (std::cin >> x)" },
+                    { id: "t0_4", text: "تسلط بر ارزیابی اتصال کوتاه و کست صریح با static_cast" },
+                    { id: "t0_5", text: "پیاده‌سازی شاخه‌بندی چندگانه با switch و دستور break بدون خطا" },
+                    { id: "t0_6", text: "تمرین حلقه‌های تکرار و استفاده اصولی از break و continue" },
+                    { id: "t0_7", text: "جایگزینی آرایه‌های سنتی C با std::array و استفاده از متد size()" },
+                    { id: "t0_8", text: "تسلط بر std::vector (افزودن با push_back، حذف با pop_back و کنترل اندازه)" },
+                    { id: "t0_9", text: "پردازش متن و جملات فاصله‌دار با std::string و getline" },
+                    { id: "t0_10", text: "طراحی توابع مستقل با الگوی بازگشت زودهنگام (Early Return)" },
+                    { id: "t0_11", text: "ارسال وکتورها و رشته‌ها به تابع با const T& جهت جلوگیری از کپی و TLE" },
+                    { id: "t0_12", text: "به‌کارگیری استنتاج auto، حلقه بازه‌ای و Structured Bindings در C++17" },
+                    { id: "t0_13", text: "پیاده‌سازی موفق الگوریتم کادانه O(N) در قالب استاندارد مسابقاتی" }
+                ]
+            },
+            {
+                id: "cp1",
+                stageTitle: "چک‌پوینت پل‌محور مرحله ۱: پایه‌ریزی مدرن و تحلیل پیچیدگی",
+                tasks: [
+                    { id: "t1_1", text: "پیاده‌سازی fast_io با قطع همگام‌سازی cin/cout در مسائل کوئرا" },
+                    { id: "t1_2", text: "محاسبه دقیق تعداد عملیات پردازنده با قانون 10^8 پیش از کدنویسی" },
+                    { id: "t1_3", text: "رزرو حافظه برای وکتورهای بزرگ با v.reserve(N)" },
+                    { id: "t1_4", text: "حل ۵ مسئله ورودی سنگین در CSES Problem Set بدون TLE" }
+                ]
+            },
+            {
+                id: "cp2",
+                stageTitle: "چک‌پوینت پل‌محور مرحله ۲: تکنیک‌های الگوریتمی و مرتب‌سازی",
+                tasks: [
+                    { id: "t2_1", text: "تسلط بر قوانین Strict Weak Ordering در مقایسه‌گر std::sort" },
+                    { id: "t2_2", text: "پیاده‌سازی جستجوی دودویی روی پاسخ (BSTA) در مسئله Factory Machines" },
+                    { id: "t2_3", text: "حل مسائل مجموع زیرآرایه با روش دو اشاره‌گر (Two Pointers) در زمان خطی" },
+                    { id: "t2_4", text: "پیاده‌سازی جمع پیشوندی دوبعدی برای استخراج مجموع زیرمستطیل در O(1)" }
+                ]
+            },
+            {
+                id: "cp3",
+                stageTitle: "چک‌پوینت پل‌محور مرحله ۳: کانتینرهای پیشرفته و منابع RAII",
+                tasks: [
+                    { id: "t3_1", text: "درک تفاوت هزینه‌های حافظه‌ای std::set و std::unordered_set" },
+                    { id: "t3_2", text: "استفاده از std::priority_queue با مقایسه‌گر سفارشی" },
+                    { id: "t3_3", text: "به‌کارگیری توابع هدر مدرن <bit> (popcount و has_single_bit) در C++20" },
+                    { id: "t3_4", text: "پیاده‌سازی ساختارهای داده با مدیریت منابع ایمن RAII" }
+                ]
+            },
+            {
+                id: "cp4",
+                stageTitle: "چک‌پوینت پل‌محور مرحله ۴: جستجوی کامل، هرس و DP توسعه‌یافته",
+                tasks: [
+                    { id: "t4_1", text: "پیاده‌سازی هرس هوشمند در درخت‌های تصمیم بازگشتی و Backtracking" },
+                    { id: "t4_2", text: "حل مسئله مجموع زیرمجموعه‌ها برای N=40 با روش Meet in the Middle" },
+                    { id: "t4_3", text: "تبدیل فرمول‌های بازگشتی به جدول تکراری Bottom-Up DP برای بهره‌گیری از کش" },
+                    { id: "t4_4", text: "حل مسئله فروشنده دوره‌گرد (TSP) با الگوی Bitmask DP" }
+                ]
+            },
+            {
+                id: "cp5",
+                stageTitle: "چک‌پوینت پل‌محور مرحله ۵: گراف، درخت‌ها و ساختمان داده پیشرفته",
+                tasks: [
+                    { id: "t5_1", text: "پیاده‌سازی DFS با لامبدای محلی auto& self بدون متغیر سراسری" },
+                    { id: "t5_2", text: "اجرای دایکسترا همراه با هرس فاصله‌های کهنه در زمان O(M log N)" },
+                    { id: "t5_3", text: "پیاده‌سازی کلاس کامل DSU با فشرده‌سازی مسیر و ادغام بر اساس اندازه" },
+                    { id: "t5_4", text: "پیاده‌سازی درخت بازه‌ها (Segment Tree) تکراری با C++20 Concepts" }
+                ]
+            },
+            {
+                id: "cp6",
+                stageTitle: "چک‌پوینت پل‌محور مرحله ۶: معماری پایدار و قالب مسابقاتی",
+                tasks: [
+                    { id: "t6_1", text: "جایگزینی توابع مجازی vtable با الگوی CRTP برای رسیدن به اینلاین کامل" },
+                    { id: "t6_2", text: "ایجاد کلاس‌های Strong Type برای شناسه‌ها و وزن‌های گراف" },
+                    { id: "t6_3", text: "استفاده از std::pmr::monotonic_buffer_resource برای صفر کردن هزینه malloc" },
+                    { id: "t6_4", text: "شرکت در یک مسابقه آزمایشی و حل موفق مسائل با قالب مسابقاتی C++20" }
+                ]
+            }
+        ];
+
+        let selectedStageId = 'all';
+        let perspectiveFilter = 'all';
+        let completedCheckpoints = new Set();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDashboardStages();
+            renderStageFilterButtons();
+            renderLessons();
+            renderCheckpoints();
+            initCharts();
+            calculateComplexity();
+        });
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById(`tab-${tabId}`);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('text-slate-300');
+            });
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.add('bg-indigo-600', 'text-white');
+                activeNav.classList.remove('text-slate-300');
+            }
+
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('text-slate-300');
+            });
+        }
+
+        function renderDashboardStages() {
+            const list = document.getElementById('dashboard-stages-list');
+            if (!list) return;
+            list.innerHTML = '';
+            stagesData.forEach(stage => {
+                const item = document.createElement('div');
+                item.className = 'p-3.5 bg-slate-50 border border-slate-200 rounded-xl hover:border-indigo-400 cursor-pointer transition flex items-center justify-between';
+                item.onclick = () => {
+                    filterByStage(stage.id);
+                    switchTab('explorer');
+                };
+                item.innerHTML = `
+                    <div class="space-y-0.5">
+                        <div class="text-xs font-bold text-indigo-600">${escapeHtml(stage.title)}</div>
+                        <div class="text-xs text-slate-600">${escapeHtml(stage.focus)}</div>
+                    </div>
+                    <div class="text-left whitespace-nowrap mr-3">
+                        <span class="inline-block bg-indigo-100 text-indigo-800 text-[10px] font-bold px-2 py-0.5 rounded-md">${escapeHtml(stage.weeks)}</span>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function renderStageFilterButtons() {
+            const container = document.getElementById('stageFilterButtons');
+            if (!container) return;
+            container.innerHTML = `
+                <button onclick="filterByStage('all')" id="stage-btn-all" class="stage-btn px-3 py-1.5 rounded-lg bg-indigo-600 text-white shadow-sm whitespace-nowrap">همه مراحل (۸ مرحله)</button>
+            `;
+            stagesData.forEach(stage => {
+                const btn = document.createElement('button');
+                btn.id = `stage-btn-${stage.id}`;
+                btn.onclick = () => filterByStage(stage.id);
+                btn.className = 'stage-btn px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 whitespace-nowrap';
+                btn.innerText = `مرحله ${stage.id}`;
+                container.appendChild(btn);
+            });
+        }
+
+        function filterByStage(stageId) {
+            selectedStageId = stageId;
+            document.querySelectorAll('.stage-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+            });
+            const activeBtn = document.getElementById(`stage-btn-${stageId}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+                activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
+            }
+            renderLessons();
+        }
+
+        function setPerspectiveFilter(persp) {
+            perspectiveFilter = persp;
+            document.querySelectorAll('.persp-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-indigo-600', 'shadow-sm');
+                btn.classList.add('text-slate-600');
+            });
+            const activeBtn = document.getElementById(`persp-${persp}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-white', 'text-indigo-600', 'shadow-sm');
+                activeBtn.classList.remove('text-slate-600');
+            }
+            renderLessons();
+        }
+
+        function filterLessons() {
+            renderLessons();
+        }
+
+        function findLesson(lessonId) {
+            for (const stage of stagesData) {
+                const found = stage.lessons.find(l => l.id === lessonId);
+                if (found) return found;
+            }
+            return null;
+        }
+
+        function renderLessons() {
+            const container = document.getElementById('lessonsContainer');
+            if (!container) return;
+            const searchVal = (document.getElementById('lessonSearchInput')?.value || '').toLowerCase().trim();
+
+            let lessonsToRender = [];
+            stagesData.forEach(stage => {
+                if (selectedStageId === 'all' || selectedStageId === stage.id) {
+                    stage.lessons.forEach(l => {
+                        lessonsToRender.push({ ...l, stageTitle: stage.title, stageId: stage.id });
+                    });
+                }
+            });
+
+            if (searchVal) {
+                lessonsToRender = lessonsToRender.filter(l =>
+                    l.title.toLowerCase().includes(searchVal) ||
+                    l.concept.toLowerCase().includes(searchVal) ||
+                    l.cph.toLowerCase().includes(searchVal) ||
+                    l.code.toLowerCase().includes(searchVal)
+                );
+            }
+
+            if (lessonsToRender.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white p-12 text-center rounded-2xl border border-slate-200">
+                        <p class="text-slate-500 text-sm">هیچ درسی مطابق با فیلتر یا عبارت جست‌وجو یافت نشد.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = lessonsToRender.map(lesson => {
+                const showCph = perspectiveFilter === 'all' || perspectiveFilter === 'cph';
+                const showEmbedded = perspectiveFilter === 'all' || perspectiveFilter === 'embedded';
+
+                return `
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6 space-y-4 hover:border-indigo-300 transition">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                            <div class="flex items-center gap-2.5">
+                                <span class="bg-indigo-100 text-indigo-800 font-mono text-xs font-bold px-2.5 py-1 rounded-md">درس ${escapeHtml(lesson.id)}</span>
+                                <h3 class="font-bold text-slate-900 text-sm sm:text-base">${escapeHtml(lesson.title)}</h3>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[11px] text-slate-400 font-medium">مرحله ${escapeHtml(String(lesson.stageId))}</span>
+                                <button onclick="openAiLessonModal('${escapeHtml(lesson.id)}')" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-lg border border-indigo-200 transition flex items-center gap-1">
+                                    <span>تحلیل با AI</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 text-xs leading-relaxed text-slate-700">
+                            <p class="font-medium bg-slate-50 p-3 rounded-xl border border-slate-100 whitespace-pre-line">${escapeHtml(lesson.concept)}</p>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                ${showCph ? `
+                                    <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-3 space-y-1">
+                                        <div class="font-bold text-blue-900 flex items-center gap-1.5">
+                                            <span>مسابقات الگوریتمی (CPH):</span>
+                                        </div>
+                                        <p class="text-blue-800 text-[11px] leading-normal">${escapeHtml(lesson.cph)}</p>
+                                    </div>
+                                ` : ''}
+
+                                ${showEmbedded ? `
+                                    <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-3 space-y-1">
+                                        <div class="font-bold text-amber-900 flex items-center gap-1.5">
+                                            <span>کیفیت و مهندسی سیستم (Embedded):</span>
+                                        </div>
+                                        <p class="text-amber-800 text-[11px] leading-normal">${escapeHtml(lesson.embedded)}</p>
+                                    </div>
+                                ` : ''}
+                            </div>
+
+                            <div class="bg-rose-50 border border-rose-200 rounded-xl p-3 text-rose-800 text-[11px] space-y-1">
+                                <span class="font-bold block">تله رایج و اشتباه متداول:</span>
+                                <p>${escapeHtml(lesson.pitfall)}</p>
+                            </div>
+
+                            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-emerald-800 text-[11px] space-y-1">
+                                <span class="font-bold block">تمرین عملی:</span>
+                                <p>${escapeHtml(lesson.exercise)}</p>
+                            </div>
+                        </div>
+
+                        <div class="relative bg-slate-950 rounded-xl p-4 text-slate-200 custom-scrollbar overflow-x-auto text-xs code-block">
+                            <button onclick="copyCodeText('${escapeHtml(encodeURIComponent(lesson.code))}')" class="absolute top-2.5 left-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded text-[11px] transition">
+                                کپی کد
+                            </button>
+                            <pre class="pt-6 font-mono text-[11px] sm:text-xs"><code>${escapeHtml(lesson.code)}</code></pre>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function copyCodeText(encodedCode) {
+            const text = decodeURIComponent(encodedCode);
+            copyStringToClipboard(text);
+            showToast('کد نمونه در کلیپ‌بورد کپی شد.');
+        }
+
+        function copyTemplateCode() {
+            const block = document.getElementById('templateCodeBlock');
+            if (block) {
+                copyStringToClipboard(block.innerText);
+                showToast('قالب استاندارد مسابقاتی C++20 کپی شد.');
+            }
+        }
+
+        function copyAiOutput(elementId) {
+            const el = document.getElementById(elementId);
+            if (el) {
+                copyStringToClipboard(el.innerText);
+                showToast('متن تحلیل در کلیپ‌بورد کپی شد.');
+            }
+        }
+
+        function copyStringToClipboard(str) {
+            const temp = document.createElement('textarea');
+            temp.value = str;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+        }
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toastNotification');
+            const msgEl = document.getElementById('toastMessage');
+            if (!toast || !msgEl) return;
+
+            msgEl.innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            if (isError) {
+                toast.classList.add('border-rose-500');
+            } else {
+                toast.classList.remove('border-rose-500');
+            }
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function renderCheckpoints() {
+            const container = document.getElementById('checkpointsListContainer');
+            if (!container) return;
+            container.innerHTML = checkpointsData.map(cp => {
+                return `
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                        <h3 class="font-bold text-sm text-slate-900 border-b border-slate-100 pb-2">${escapeHtml(cp.stageTitle)}</h3>
+                        <div class="space-y-2 text-xs">
+                            ${cp.tasks.map(task => {
+                                const isChecked = completedCheckpoints.has(task.id);
+                                return `
+                                    <label class="flex items-start gap-2.5 p-2 rounded-lg hover:bg-slate-50 cursor-pointer transition">
+                                        <input type="checkbox" onchange="toggleCheckpoint('${escapeHtml(task.id)}')" ${isChecked ? 'checked' : ''} class="mt-0.5 rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4 border-slate-300">
+                                        <span class="${isChecked ? 'line-through text-slate-400' : 'text-slate-700'}">${escapeHtml(task.text)}</span>
+                                    </label>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            updateReadiness();
+        }
+
+        function toggleCheckpoint(id) {
+            if (completedCheckpoints.has(id)) {
+                completedCheckpoints.delete(id);
+            } else {
+                completedCheckpoints.add(id);
+            }
+            renderCheckpoints();
+        }
+
+        function updateReadiness() {
+            let totalTasks = 0;
+            checkpointsData.forEach(cp => totalTasks += cp.tasks.length);
+            const percent = totalTasks > 0 ? Math.round((completedCheckpoints.size / totalTasks) * 100) : 0;
+            const badge = document.getElementById('readinessPercent');
+            if (badge) badge.innerText = `${percent}٪`;
+        }
+
+        function initCharts() {
+            const el1 = document.getElementById('timeDistributionChart');
+            if (el1) {
+                const ctx1 = el1.getContext('2d');
+                new Chart(ctx1, {
+                    type: 'doughnut',
+                    data: {
+                        labels: [
+                            'مرحله ۰: درس صفر C++ Primer (۵ wk)',
+                            'مرحله ۱: پایه‌ریزی مدرن و I/O (۵ wk)',
+                            'مرحله ۲: الگوریتم‌های پایه و باینری سرچ (۶ wk)',
+                            'مرحله ۳: کانتینرها، بیت و RAII (۶ wk)',
+                            'مرحله ۴: جستجوی کامل و DP (۷ wk)',
+                            'مرحله ۵: گراف، درخت و بازه‌ها (۸ wk)',
+                            'مرحله ۶: معماری صفرسربار و سنتز (۴ wk)'
+                        ],
+                        datasets: [{
+                            data: [5, 5, 6, 6, 7, 8, 4],
+                            backgroundColor: ['#4f46e5', '#6366f1', '#0284c7', '#0d9488', '#10b981', '#f59e0b', '#8b5cf6'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { font: { family: 'Vazirmatn', size: 9 }, boxWidth: 10 }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const el2 = document.getElementById('overheadChart');
+            if (el2) {
+                const ctx2 = el2.getContext('2d');
+                new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: [
+                            'std::function (سربار فراخوانی)',
+                            'Virtual Dispatch (توابع مجازی)',
+                            'std::vector Reallocation بدون رزرو',
+                            'Modern Inlined Lambda (لامبدای مستقیم)',
+                            'CRTP Compile-Time (چندریختی ایستا)',
+                            'std::vector با reserve / std::array'
+                        ],
+                        datasets: [{
+                            label: 'شاخص نسبی تاخیر و مصرف سیکل پردازنده (کمتر = سریع‌تر)',
+                            data: [85, 45, 75, 5, 2, 4],
+                            backgroundColor: ['#f43f5e', '#fb923c', '#f59e0b', '#10b981', '#059669', '#0d9488'],
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: { font: { family: 'Vazirmatn', size: 9 } }
+                            },
+                            y: {
+                                ticks: { font: { family: 'Vazirmatn', size: 10 } }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        function calculateComplexity() {
+            const nInput = document.getElementById('inputN');
+            const compSelect = document.getElementById('complexitySelect');
+            const opsOutput = document.getElementById('opsOutput');
+            const badge = document.getElementById('feasibilityBadge');
+            if (!nInput || !compSelect || !opsOutput || !badge) return;
+
+            const n = parseFloat(nInput.value) || 0;
+            const comp = compSelect.value;
+            let ops = 0;
+
+            if (comp === 'O(1)') ops = 1;
+            else if (comp === 'O(log N)') ops = Math.max(1, Math.round(Math.log2(Math.max(1, n))));
+            else if (comp === 'O(N)') ops = n;
+            else if (comp === 'O(N log N)') ops = Math.round(n * Math.log2(Math.max(1, n)));
+            else if (comp === 'O(N^2)') ops = n * n;
+            else if (comp === 'O(2^N * N)') ops = Math.pow(2, Math.min(n, 25)) * n;
+
+            opsOutput.innerText = `${ops.toLocaleString('fa-IR')} عملیات تقریبی`;
+
+            if (ops <= 1e7) {
+                badge.className = 'p-3 rounded-lg text-center font-bold text-xs bg-emerald-100 text-emerald-800 border border-emerald-300';
+                badge.innerText = 'کاملاً مجاز (کمتر از ۰.۱ ثانیه) - تضمین عدم بروز TLE در سقف ۱ ثانیه';
+            } else if (ops <= 1e8) {
+                badge.className = 'p-3 rounded-lg text-center font-bold text-xs bg-amber-100 text-amber-800 border border-amber-300';
+                badge.innerText = 'در آستانه مرز طلایی (حدود ۰.۱ تا ۱.۰ ثانیه) - نیاز به استفاده از fast_io و پرهیز از کپی حافظه';
+            } else {
+                badge.className = 'p-3 rounded-lg text-center font-bold text-xs bg-rose-100 text-rose-800 border border-rose-300';
+                badge.innerText = 'خطر قطعی TLE (بیش از ۱ ثانیه داوری) - باید مرتبه الگوریتم را بهبود بخشید!';
+            }
+        }
+
+        function switchAiTool(tool) {
+            document.querySelectorAll('.ai-tool-pane').forEach(p => p.classList.add('hidden'));
+            const target = document.getElementById(`ai-tool-${tool}`);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.ai-tool-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+            });
+            const activeBtn = document.getElementById(`btn-tool-${tool}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+                activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
+            }
+        }
+
+        function loadCodePreset(preset) {
+            const input = document.getElementById('aiCodeInput');
+            if (!input) return;
+            if (preset === 'vector_reserve') {
+                input.value = `#include <iostream>\n#include <vector>\n\nint main() {\n    // کد قدیمی و بدون قطع همگام سازی\n    int n;\n    std::cin >> n;\n    std::vector<int> v;\n    for(int i = 0; i < n; i++) {\n        int x;\n        std::cin >> x;\n        v.push_back(x);\n    }\n    for(int i = 0; i < v.size(); i++) {\n        std::cout << v[i] << std::endl; // تله مرگبار endl\n    }\n    return 0;\n}`;
+            } else if (preset === 'virtual_to_crtp') {
+                input.value = `struct BaseHandler {\n    virtual void process(int x) = 0;\n};\n\nstruct FastHandler : public BaseHandler {\n    void process(int x) override {\n        // عملیات پرتکرار که vtable برای آن تحمیل شده\n    }\n};`;
+            }
+        }
+
+        // --- GEMINI LIVE API INTEGRATION ---
+        async function callGeminiApi(prompt, systemPrompt = "تو یک مربی برجسته و متخصص برنامه‌نویسی مدرن C++ (استاندارد C++20/23)، کتاب C++ Primer و الگوریتم‌های مسابقاتی (CPH) هستی. به زبان فارسی روان، دقیق و فنی پاسخ بده.") {
+            const apiKey = document.getElementById('userApiKeyInput')?.value.trim() || '';
+            if (!apiKey) {
+                throw new Error("لطفاً ابتدا کلید API گوگل جمینای (Gemini API Key) خود را در کادر تنظیمات بالای صفحه وارد کنید.");
+            }
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errData = await response.json().catch(() => ({}));
+                throw new Error(`خطای ارتباط با سرور جمینای (${response.status}): ${errData.error?.message || response.statusText}`);
+            }
+
+            const result = await response.json();
+            const candidate = result.candidates?.[0];
+            if (candidate && candidate.content?.parts?.[0]?.text) {
+                return candidate.content.parts[0].text;
+            } else {
+                throw new Error("پاسخ نامعتبر از مدل جمینای دریافت شد.");
+            }
+        }
+
+        async function testGeminiConnection() {
+            const badge = document.getElementById('connectionStatusBadge');
+            const apiKey = document.getElementById('userApiKeyInput')?.value.trim() || '';
+            if (!apiKey) {
+                showToast('لطفاً کلید API را وارد کنید.', true);
+                return;
+            }
+
+            badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200';
+            badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></span><span>در حال تست اتصال به جمینای...</span>';
+
+            try {
+                const testReply = await callGeminiApi("پینگ! آیا متصل هستی؟ پاسخ کوتاه بده: بله، متصل است.");
+                badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200';
+                badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>متصل و آماده (Gemini AI Active)</span>';
+                showToast('ارتباط با موفقیت برقرار شد!');
+            } catch (err) {
+                badge.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200';
+                badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-500"></span><span>خطا در احراز هویت</span>';
+                showToast(err.message, true);
+            }
+        }
+
+        async function runAiCodeReview() {
+            const input = document.getElementById('aiCodeInput');
+            const focus = document.getElementById('aiReviewFocus')?.value || 'zero_overhead';
+            const loading = document.getElementById('aiReviewLoading');
+            const output = document.getElementById('aiReviewOutput');
+            const btn = document.getElementById('btnRunReview');
+
+            if (!input || !input.value.trim()) {
+                showToast('لطفاً ابتدا یک قطعه کد برای بررسی وارد کنید.', true);
+                return;
+            }
+
+            loading.classList.remove('hidden');
+            output.classList.add('hidden');
+            btn.disabled = true;
+
+            const prompt = `لطفاً کد زیر را بررسی کن و نسخه بهینه‌شده آن را بر اساس استاندارد C++20/23 و اصول مهندسی سیستمارائه بده. محور تمرکز: ${focus}\n\nکد:\n${input.value}`;
+
+            try {
+                const aiResponse = await callGeminiApi(prompt);
+                loading.classList.add('hidden');
+                output.classList.remove('hidden');
+                btn.disabled = false;
+                output.innerText = aiResponse;
+                showToast('تحلیل زنده کد انجام شد.');
+            } catch (err) {
+                loading.classList.add('hidden');
+                output.classList.remove('hidden');
+                btn.disabled = false;
+                output.innerText = `خطا در دریافت پاسخ از جمینای: ${err.message}`;
+                showToast(err.message, true);
+            }
+        }
+
+        async function generateAiProblem() {
+            const topic = document.getElementById('genTopic')?.value || 'DSU';
+            const diff = document.getElementById('genDifficulty')?.value || 'Medium';
+            const loading = document.getElementById('genLoading');
+            const container = document.getElementById('genResultContainer');
+            const resultText = document.getElementById('genResultText');
+
+            loading.classList.remove('hidden');
+            container.classList.add('hidden');
+
+            const prompt = `یک مسئله جدید و استاندارد مسابقات الگوریتمی (در سطح ICPC یا کوئرا) درباره موضوع "${topic}" با سطح دشواری "${diff}" طراحی کن. شامل صورت مسئله، محدودیت‌ها، تست‌کیس‌های مرزی و راهکار بهینه با کد C++20.`;
+
+            try {
+                const aiResponse = await callGeminiApi(prompt);
+                loading.classList.add('hidden');
+                container.classList.remove('hidden');
+                resultText.innerText = aiResponse;
+                showToast('مسئله مسابقاتی جدید تولید شد.');
+            } catch (err) {
+                loading.classList.add('hidden');
+                container.classList.remove('hidden');
+                resultText.innerText = `خطا در ارتباط با جمینای: ${err.message}`;
+                showToast(err.message, true);
+            }
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') sendChatMessage();
+        }
+
+        function sendQuickPrompt(promptText) {
+            const input = document.getElementById('chatInputText');
+            if (input) {
+                input.value = promptText;
+                sendChatMessage();
+            }
+        }
+
+        function clearChatHistory() {
+            const container = document.getElementById('chatMessagesContainer');
+            if (container) {
+                container.innerHTML = `
+                    <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm max-w-[85%] space-y-1">
+                        <span class="font-bold text-indigo-600 block">مربی هوشمند مدرن ++C (Gemini AI):</span>
+                        <p class="text-slate-700 leading-relaxed">گفت‌وگو بازنشانی شد. سوال بعدی خود را بپرسید.</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chatInputText');
+            const container = document.getElementById('chatMessagesContainer');
+            if (!input || !container || !input.value.trim()) return;
+
+            const userMsg = input.value.trim();
+            input.value = '';
+
+            const userBubble = document.createElement('div');
+            userBubble.className = 'bg-indigo-600 text-white p-3 rounded-xl shadow-sm max-w-[85%] mr-auto space-y-1 text-left';
+            userBubble.innerHTML = `<p class="leading-relaxed" style="direction: rtl; text-align: right;">${escapeHtml(userMsg)}</p>`;
+            container.appendChild(userBubble);
+            container.scrollTop = container.scrollHeight;
+
+            const loadingBubble = document.createElement('div');
+            loadingBubble.className = 'bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm max-w-[85%] space-y-1';
+            loadingBubble.innerHTML = '<span class="font-bold text-indigo-600 block">مربی هوشمند (در حال تفکر...):</span><p class="text-slate-500 animate-pulse">در حال دریافت پاسخ زنده از مدل جمینای...</p>';
+            container.appendChild(loadingBubble);
+            container.scrollTop = container.scrollHeight;
+
+            try {
+                const aiReply = await callGeminiApi(userMsg);
+                container.removeChild(loadingBubble);
+
+                const botBubble = document.createElement('div');
+                botBubble.className = 'bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm max-w-[85%] space-y-1';
+                botBubble.innerHTML = `
+                    <span class="font-bold text-indigo-600 block">مربی هوشمند مدرن ++C (Gemini AI):</span>
+                    <p class="text-slate-700 leading-relaxed whitespace-pre-wrap">${escapeHtml(aiReply)}</p>
+                `;
+                container.appendChild(botBubble);
+                container.scrollTop = container.scrollHeight;
+            } catch (err) {
+                container.removeChild(loadingBubble);
+                const errBubble = document.createElement('div');
+                errBubble.className = 'bg-rose-50 p-3.5 rounded-xl border border-rose-200 shadow-sm max-w-[85%] space-y-1 text-rose-800';
+                errBubble.innerHTML = `<span class="font-bold block">خطا در ارتباط:</span><p>${escapeHtml(err.message)}</p>`;
+                container.appendChild(errBubble);
+                container.scrollTop = container.scrollHeight;
+                showToast(err.message, true);
+            }
+        }
+
+        function openAiLessonModal(lessonId) {
+            const lesson = findLesson(lessonId);
+            if (!lesson) return;
+
+            const modal = document.getElementById('aiLessonModal');
+            const titleEl = document.getElementById('modalLessonTitle');
+            const badgeEl = document.getElementById('modalLessonBadge');
+            const loading = document.getElementById('modalLessonLoading');
+            const content = document.getElementById('modalLessonContent');
+
+            titleEl.innerText = lesson.title;
+            badgeEl.innerText = `درس ${lesson.id}`;
+            modal.classList.remove('hidden');
+            loading.classList.remove('hidden');
+            content.classList.add('hidden');
+
+            setTimeout(() => {
+                loading.classList.add('hidden');
+                content.classList.remove('hidden');
+                content.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="bg-indigo-50 p-3.5 rounded-xl border border-indigo-200 space-y-1">
+                            <span class="font-bold text-indigo-900 block text-xs">تحلیل ساختاری و معماری مفهوم (C++ Primer):</span>
+                            <p class="text-indigo-800 text-[11px] leading-relaxed whitespace-pre-line">${escapeHtml(lesson.concept)}</p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+                                <span class="font-bold text-slate-800 block text-[11px]">کاربرد در سیستم داوری (CPH):</span>
+                                <p class="text-slate-600 text-[11px]">${escapeHtml(lesson.cph)}</p>
+                            </div>
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+                                <span class="font-bold text-slate-800 block text-[11px]">کاربرد در سیستم‌های تعبیه‌شده:</span>
+                                <p class="text-slate-600 text-[11px]">${escapeHtml(lesson.embedded)}</p>
+                            </div>
+                        </div>
+                        <div class="p-3 bg-slate-900 text-slate-200 rounded-xl space-y-2 text-[11px]">
+                            <span class="font-bold text-indigo-400 block">آزمونک ارزیابی درک مفهوم (Self-Quiz):</span>
+                            <p>۱. تفاوت کلیدی این پیاده‌سازی مدرن نسبت به سنت‌های کلاسیک زبان C چیست؟</p>
+                            <p>۲. چرا در زمان اجرا هیچ سرباری به کامپایلر تحمیل نمی‌شود؟</p>
+                            <p>۳. چگونه این روش مانع بروز رفتار تعریف‌نشده (Undefined Behavior) می‌گردد؟</p>
+                        </div>
+                    </div>
+                `;
+            }, 400);
+        }
+
+        function closeAiLessonModal() {
+            const modal = document.getElementById('aiLessonModal');
+            if (modal) modal.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
